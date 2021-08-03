@@ -1,6 +1,7 @@
 <template>
+<div id="master">
   <div id="login" class="text-center">
-    <form class="form-signin" @submit.prevent="login">
+    <form id="form" class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div
         class="alert alert-danger"
@@ -34,6 +35,8 @@
       <router-link :to="{ name: 'register' }">Need an account?</router-link>
       <button type="submit">Sign in</button>
     </form>
+  </div>
+  
   </div>
 </template>
 
@@ -74,3 +77,34 @@ export default {
   }
 };
 </script>
+
+<style>
+
+  #master {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+  #form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: space-around;
+    margin: auto;
+    border-style: groove;
+    border-color: black;
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-bottom: 50px;
+    
+  }
+
+  .form-control {
+    text-align: center;
+  }
+
+  
+
+
+</style>
