@@ -1,4 +1,5 @@
 <template>
+<div id="master">
   <div id="register" class="text-center">
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
@@ -38,6 +39,7 @@
       </button>
     </form>
   </div>
+</div>
 </template>
 
 <script>
@@ -90,4 +92,28 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#master {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+
+
+.form-register {
+   display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: space-around;
+    margin: auto;
+    border-style: groove;
+    border-color: black;
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-bottom: 50px;
+}
+
+
+
+</style>
