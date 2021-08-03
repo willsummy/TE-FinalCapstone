@@ -9,8 +9,12 @@
                   <option value="medium">Medium</option>
                   <option value="large">Large</option>
               </select>
-              
-
+          </div>
+          <div>
+            <h2>Search and add a pin</h2>
+            <GmapAutocomplete
+                @place_changed='setAddress'
+            />
           </div>
           <div>
               <label for="description">Description</label>
@@ -26,7 +30,7 @@
 </template>
 
 <script>
-import PotholeService from '../services/PotholeService.js'
+//import PotholeService from '../services/PotholeService.js'
 
 export default {
     name: "pothole-form",
@@ -35,6 +39,9 @@ export default {
             pothole: {
                 size: "",
                 description: "",
+                lat: null,
+                lng: null,
+                address: null
 
             }
         }
@@ -42,8 +49,24 @@ export default {
 
     methods: {
         submit() {
+            console.log(this.pothole.lat())
+            // PotholeService
+            //     .add(this.pothole)
+            //     .then( response => {
+            //         if (response.status == 201) {
+            //             alert('Pothole Reported')
+            //         } else {
+            //             alert('Server not set up yet')
+            //         }
+            //         this.$router.push('/')
 
+            //     })
         },
+        setAddress(place) {
+            this.pothole.address = place.formatted_address;
+            this.pothole.lat = place.geometry.location.lat();
+            this.pothole.lng = place.geometry.location.lng();
+        }
 
     }
 
