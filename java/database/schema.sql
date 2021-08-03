@@ -2,18 +2,14 @@ BEGIN TRANSACTION;
 
 DROP TABLE IF EXISTS service_status CASCADE;
 DROP TABLE IF EXISTS service CASCADE;
-DROP TABLE IF EXISTS description CASCADE;
+DROP TABLE IF EXISTS pothole_description CASCADE;
 DROP TABLE IF EXISTS potholes CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
-
 
 DROP SEQUENCE IF EXISTS seq_service_id CASCADE;
 DROP SEQUENCE IF EXISTS seq_description_id CASCADE;
 DROP SEQUENCE IF EXISTS seq_pothole_id CASCADE;
 DROP SEQUENCE IF EXISTS seq_user_id CASCADE;
-
-
-
 
 CREATE SEQUENCE seq_pothole_id
   INCREMENT BY 1
@@ -48,15 +44,11 @@ CREATE TABLE users (
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
 	
-	CONSTRAINT PK_user PRIMARY KEY (user_id)
-	
+	CONSTRAINT PK_user PRIMARY KEY (user_id)	
 );
 
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
-
-
-
 
 CREATE TABLE potholes (
         pothole_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
@@ -67,8 +59,6 @@ CREATE TABLE potholes (
         CONSTRAINT PK_potholes PRIMARY KEY (pothole_id),
         CONSTRAINT FK_pothole_user FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
-
-    
  
 CREATE TABLE pothole_description (
         description_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
@@ -83,28 +73,27 @@ CREATE TABLE pothole_description (
         CONSTRAINT FK_pothole_description FOREIGN KEY (pothole_id) REFERENCES potholes (pothole_id)        
 );
 
+CREATE TABLE service_status (
+        service_status_id int NOT NULL,
+        service_status varchar NOT NULL,
+        
+        CONSTRAINT PK_service_status PRIMARY KEY (service_status_id)                     
+);
+
 CREATE TABLE service (
         service_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
         pothole_id int NOT NULL,
         date_reported date NOT NULL,
         date_inspected date NOT NULL,
         employee_id int NOT NULL,
-        status int NOT NULL,
+        service_status_id int NOT NULL,
         repaired_date date NOT NULL,
         
         CONSTRAINT PK_service PRIMARY KEY (service_id),
-        CONSTRAINT FK_pothole_id FOREIGN KEY (pothole_id) REFERENCES potholes (pothole_id)        
+        CONSTRAINT FK_pothole_service_id FOREIGN KEY (pothole_id) REFERENCES potholes (pothole_id),
+        CONSTRAINT FK_service_status FOREIGN KEY (service_status_id) REFERENCES service_status (service_status_id)        
+               
 );
-
-
-CREATE TABLE service_status (
-        service_status int NOT NULL,
-        service_type_description varchar NOT NULL,
-        
-        CONSTRAINT PK_service_status PRIMARY KEY (service_status)
-              
-);
-
 COMMIT TRANSACTION;
 
 
