@@ -2,12 +2,10 @@ BEGIN TRANSACTION;
 
 DROP TABLE IF EXISTS service_status CASCADE;
 DROP TABLE IF EXISTS service CASCADE;
-DROP TABLE IF EXISTS pothole_description CASCADE;
 DROP TABLE IF EXISTS potholes CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
 DROP SEQUENCE IF EXISTS seq_service_id CASCADE;
-DROP SEQUENCE IF EXISTS seq_description_id CASCADE;
 DROP SEQUENCE IF EXISTS seq_pothole_id CASCADE;
 DROP SEQUENCE IF EXISTS seq_user_id CASCADE;
 
@@ -24,12 +22,6 @@ CREATE SEQUENCE seq_service_id
   NO MINVALUE
   CACHE 1;
   
-  CREATE SEQUENCE seq_description_id
-  INCREMENT BY 1
-  START WITH 2001
-  NO MAXVALUE
-  NO MINVALUE
-  CACHE 1;
   
   CREATE SEQUENCE seq_user_id
   INCREMENT BY 1
@@ -55,23 +47,17 @@ CREATE TABLE potholes (
         user_id int NOT NULL,
         date_reported date NOT NULL,
         time_reported timestamp NOT NULL,
-        
-        CONSTRAINT PK_potholes PRIMARY KEY (pothole_id),
-        CONSTRAINT FK_pothole_user FOREIGN KEY (user_id) REFERENCES users (user_id)
-);
- 
-CREATE TABLE pothole_description (
-        description_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
-        pothole_id int NOT NULL,
-        formatted_address varchar NOT NULL,
+        description varchar NULL,
+        address varchar NOT NULL,
         latitude decimal NOT NULL,
         longtitude decimal NOT NULL,
         size varchar NOT NULL,
         rank int NULL,
         
-        CONSTRAINT PK_pothole_description PRIMARY KEY (description_id),
-        CONSTRAINT FK_pothole_description FOREIGN KEY (pothole_id) REFERENCES potholes (pothole_id)        
+        CONSTRAINT PK_potholes PRIMARY KEY (pothole_id),
+        CONSTRAINT FK_pothole_user FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
+ 
 
 CREATE TABLE service_status (
         service_status_id int NOT NULL,
