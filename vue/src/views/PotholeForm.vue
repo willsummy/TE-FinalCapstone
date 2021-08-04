@@ -17,7 +17,7 @@
             />
           </div>
           <div>
-              
+
               <textarea v-model="pothole.description" name="description" id="description" cols="30" rows="10" placeholder="Please write a description"></textarea>
           </div>
           <div>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-//import PotholeService from '../services/PotholeService.js'
+import PotholeService from '../services/PotholeService.js'
 
 export default {
     name: "pothole-form",
@@ -39,9 +39,10 @@ export default {
             pothole: {
                 size: "",
                 description: "",
-                lat: null,
-                lng: null,
-                address: null
+                latitude: null,
+                longitude: null,
+                address: null,
+                user_id: this.$store.state.user.id
 
             }
         }
@@ -49,23 +50,22 @@ export default {
 
     methods: {
         submit() {
-            console.log(this.pothole.lat())
-            // PotholeService
-            //     .add(this.pothole)
-            //     .then( response => {
-            //         if (response.status == 201) {
-            //             alert('Pothole Reported')
-            //         } else {
-            //             alert('Server not set up yet')
-            //         }
-            //         this.$router.push('/')
+            PotholeService
+                .add(this.pothole)
+                .then( response => {
+                    if (response.status == 201) {
+                        alert('Pothole Reported')
+                    } else if (response.status != 500) {
+                        alert('Server not set up yet')
+                    }
+                    this.$router.push('/')
 
-            //     })
+                })
         },
         setAddress(place) {
             this.pothole.address = place.formatted_address;
-            this.pothole.lat = place.geometry.location.lat();
-            this.pothole.lng = place.geometry.location.lng();
+            this.pothole.latitude = place.geometry.location.lat();
+            this.pothole.longitude = place.geometry.location.lng();
         }
 
     }
@@ -79,7 +79,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
   }
   #form {
     display: flex;
@@ -92,7 +92,7 @@ export default {
     padding-left: 150px;
     padding-right: 150px;
     padding-bottom: 50px;
-    
+
   }
 
 </style>
