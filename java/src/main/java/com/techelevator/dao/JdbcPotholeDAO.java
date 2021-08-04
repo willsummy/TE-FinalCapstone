@@ -6,9 +6,11 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 @Component
 public class JdbcPotholeDAO implements PotholeDAO {
 
@@ -20,11 +22,11 @@ public class JdbcPotholeDAO implements PotholeDAO {
 
     @Override
     public void createPothole(Pothole pothole) {
-        String sql = "INSERT INTO pothole (user_id, date_reported, time_reported, address," +
+        String sql = "INSERT INTO potholes (user_id, date_reported, time_reported, address," +
                 " latitude, longitude, description, size)"
                 + " Values (?, CURRENT_DATE, CURRENT_TIME, ?, ?, ?, ?, ?)";
        jdbcTemplate.update(sql, pothole.getUser_id(), pothole.getAddress(), pothole.getLatitude(),
-               pothole.getLongitude(), pothole.getDescription(), getPotholes().size());
+               pothole.getLongitude(), pothole.getDescription(), pothole.getSize());
     }
 
 
@@ -41,10 +43,10 @@ public class JdbcPotholeDAO implements PotholeDAO {
 
     private Pothole mapRowToTransfer(SqlRowSet rs) {
         Pothole pothole = new Pothole();
-        pothole.setPotholeId(rs.getLong("pothole_id"));
+        //pothole.setPotholeId(rs.getLong("pothole_id"));
         pothole.setUser_id(rs.getLong("user_id"));
-        pothole.setDateReported(rs.getString("date_reported"));
-        pothole.setTimeReported(rs.getString("time_reported"));
+        //pothole.setDateReported(rs.getString("date_reported"));
+        //pothole.setTimeReported(rs.getString("time_reported"));
         pothole.setAddress(rs.getString("address"));
         pothole.setLatitude(rs.getDouble("latitude"));
         pothole.setLongitude(rs.getDouble("longitude"));

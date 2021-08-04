@@ -43,14 +43,14 @@ INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULi
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
 CREATE TABLE potholes (
-        pothole_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
+        pothole_id int DEFAULT nextval('seq_service_id'::regclass) NOT NULL,
         user_id int NOT NULL,
         date_reported date NOT NULL,
-        time_reported timestamp NOT NULL,
+        time_reported time NOT NULL,
         description varchar NULL,
         address varchar NOT NULL,
         latitude decimal NOT NULL,
-        longtitude decimal NOT NULL,
+        longitude decimal NOT NULL,
         size varchar NOT NULL,
         rank int NULL,
         
