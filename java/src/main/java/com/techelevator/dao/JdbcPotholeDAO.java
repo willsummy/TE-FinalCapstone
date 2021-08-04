@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 
 import com.techelevator.model.Pothole;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -20,11 +21,11 @@ public class JdbcPotholeDAO implements PotholeDAO {
 
     @Override
     public void createPothole(Pothole pothole) {
-        String sql = "INSERT INTO pothole (user_id, date_reported, time_reported, address," +
+        String sql = "INSERT INTO potholes (user_id, date_reported, time_reported, address," +
                 " latitude, longitude, description, size)"
                 + " Values (?, CURRENT_DATE, CURRENT_TIME, ?, ?, ?, ?, ?)";
        jdbcTemplate.update(sql, pothole.getUser_id(), pothole.getAddress(), pothole.getLatitude(),
-               pothole.getLongitude(), pothole.getDescription(), getPotholes().size());
+               pothole.getLongitude(), pothole.getDescription(), pothole.getSize());
     }
 
 
