@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @RestController
-@PreAuthorize("isAuthenticated()")
+//@PreAuthorize("isAuthenticated()")
 @CrossOrigin
 public class PotholeController {
 
@@ -20,11 +20,16 @@ public class PotholeController {
         this.potholeDAO = potholeDAO;
     }
 
-    @PreAuthorize("hasRole('USER')")
+    //@PreAuthorize("hasRole('USER')")
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/pothole", method = RequestMethod.POST)
     public void createPothole(@RequestBody Pothole pothole) {
-        potholeDAO.createPothole(pothole);
+        try {
+            potholeDAO.createPothole(pothole);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
