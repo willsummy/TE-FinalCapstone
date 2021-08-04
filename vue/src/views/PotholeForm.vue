@@ -1,6 +1,6 @@
 <template>
-  <div>
-      <form v-on:submit.prevent>
+  <div id="master">
+      <form id="form" v-on:submit.prevent>
           <div>
               <label for="size">Size</label>
               <select v-model="pothole.size" name="size" id="size">
@@ -17,8 +17,8 @@
             />
           </div>
           <div>
-              <label for="description">Description</label>
-              <textarea v-model="pothole.description" name="description" id="description" cols="30" rows="10"></textarea>
+              
+              <textarea v-model="pothole.description" name="description" id="description" cols="30" rows="10" placeholder="Please write a description"></textarea>
           </div>
           <div>
               <button v-on:click="submit" type="submit">Submit</button>
@@ -75,4 +75,24 @@ export default {
 
 <style>
 
-</style>,
+#master {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+  #form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: space-around;
+    margin: auto;
+    border-style: groove;
+    border-color: black;
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-bottom: 50px;
+    
+  }
+
+</style>
