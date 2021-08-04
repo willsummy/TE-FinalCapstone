@@ -21,9 +21,10 @@ public class JdbcPotholeDAO implements PotholeDAO {
     @Override
     public void createPothole(Pothole pothole) {
         String sql = "INSERT INTO pothole (user_id, date_reported, time_reported, address," +
-                " latitude, longitude, description, size, rank)"
-                + " Values (?, CURRENT_DATE, CURRENT_TIME, ?, ?, ?, ?, ?, ? ) returning pothole_id";
-       jdbcTemplate.update(sql, pothole.getUserId());
+                " latitude, longitude, description, size)"
+                + " Values (?, CURRENT_DATE, CURRENT_TIME, ?, ?, ?, ?, ?)";
+       jdbcTemplate.update(sql, pothole.getUser_id(), pothole.getAddress(), pothole.getLatitude(),
+               pothole.getLongitude(), pothole.getDescription(), getPotholes().size());
     }
 
 
@@ -40,13 +41,13 @@ public class JdbcPotholeDAO implements PotholeDAO {
 
     private Pothole mapRowToTransfer(SqlRowSet rs) {
         Pothole pothole = new Pothole();
-        pothole.setPotholeId(rs.getInt("pothole_id"));
-        pothole.setUserId(rs.getInt("user_id"));
+        pothole.setPotholeId(rs.getLong("pothole_id"));
+        pothole.setUser_id(rs.getLong("user_id"));
         pothole.setDateReported(rs.getString("date_reported"));
         pothole.setTimeReported(rs.getString("time_reported"));
         pothole.setAddress(rs.getString("address"));
-        pothole.setLatitude(rs.getInt("latitude"));
-        pothole.setLongitude(rs.getInt("longitude"));
+        pothole.setLatitude(rs.getDouble("latitude"));
+        pothole.setLongitude(rs.getDouble("longitude"));
         pothole.setDescription(rs.getString("description"));
         pothole.setSize(rs.getString("size"));
         pothole.setRank(rs.getInt("rank"));

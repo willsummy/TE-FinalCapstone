@@ -11,6 +11,7 @@ import java.security.Principal;
 
 @RestController
 @PreAuthorize("isAuthenticated()")
+@CrossOrigin
 public class PotholeController {
 
     private PotholeDAO potholeDAO;
