@@ -5,10 +5,10 @@ import java.util.List;
 
 public interface PotholeDAO {
 
-    Pothole createPothole(Pothole pothole);
+    void createPothole(Pothole pothole);
 
-    List<Pothole> getPotholes(Pothole pothole);
+    List<Pothole> getPotholes();
 
-    Pothole getOnePothole(Pothole pothole);
+    Pothole getOnePothole(Long id);
 
 }

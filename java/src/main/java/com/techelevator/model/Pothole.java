@@ -6,11 +6,70 @@ public class Pothole {
     private long potholeId;
     @NotEmpty
     private long userId;
-    @NotEmpty
+
     private String dateReported;
-    @NotEmpty
+
     private String timeReported;
 
+    private String address;
+
+    private long latitude;
+
+    private long longitude;
+
+    private String description;
+
+    private String size;
+
+    private int rank;
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public long getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(long latitude) {
+        this.latitude = latitude;
+    }
+
+    public long getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(long longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public long getPotholeId() {
         return potholeId;
