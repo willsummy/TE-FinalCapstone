@@ -8,19 +8,39 @@
     <div id="googlemap">
       <GoogleMap/>
     </div>
+    <pothole-list/>
+  </div>
+
+  <div>
+
   </div>
 </div>
 </template>
 
 <script>
+
 import GoogleMap from '../components/GoogleMap.vue'
 import PotholeService from '../services/PotholeService';
+import PotholeList from '../components/PotholeList.vue';
+
 export default {
   name: "home",
+
   components: {
-    GoogleMap
-  }
+    GoogleMap,
+    PotholeList
+  },
+
+  created() {
+    let potholes = null;
+   PotholeService.getList().then(response => {
+     potholes = response.data
+    })
+   this.$store.commit("SET_POTHOLES", potholes)
+}
 };
+
+
 </script>
 
 
