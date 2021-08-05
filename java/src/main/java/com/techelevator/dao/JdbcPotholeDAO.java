@@ -10,7 +10,6 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +36,8 @@ public class JdbcPotholeDAO implements PotholeDAO {
     @Override //inserting pothole object into pothole table
     public List<Pothole> getPotholesList() {
         List<Pothole> allPotholesList = new ArrayList<>();
-        String sql = "SELECT * FROM potholes";
+        String sql = "SELECT pothole_id, user_id, date_reported, time_reported, address," +
+                " latitude, longitude, description, rank, size FROM potholes";
                 SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
             Pothole allPotholes = mapRowToPothole(results);
@@ -49,13 +49,29 @@ public class JdbcPotholeDAO implements PotholeDAO {
     @Override
     public List<Pothole> getUsersPotholes(Long userId) {
         List<Pothole> allPotholesList = new ArrayList<>();
-        String sql = "SELECT * FROM potholes WHERE user_id = ?";
+        String sql = "SELECT pothole_id, user_id, date_reported, time_reported, address," +
+                " latitude, longitude, description, size FROM potholes WHERE user_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         while (results.next()) {
             Pothole allPotholes = mapRowToPothole(results);
             allPotholesList.add(allPotholes);
         }
         return allPotholesList;
+    }
+
+    @Override
+    public void reviewPotholes(Pothole pothole) {
+        String sql = "UPDATE pothole SET description = ?, address = ?, " +
+                "latitude = ?, longitude = ?, description = ?, size = ?, rank = ?  WHERE pothole_id = ?";
+        jdbcTemplate.update(sql, pothole.getAddress(), pothole.getLatitude(),
+                pothole.getLongitude(), pothole.getDescription(), pothole.getSize(),
+                pothole.getRank(), pothole.getPotholeId());
+    }
+
+    @Override
+    public void deletePothole(long potholeId) {
+        String sql = "DELETE FROM pothole WHERE pothole_id = ? ";
+        jdbcTemplate.update(sql, potholeId);
     }
 
     @Override
