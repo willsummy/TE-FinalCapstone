@@ -11,6 +11,9 @@ public interface PotholeDAO {
 
     List<Pothole> getUsersPotholes(Long userId);
 
-    Pothole getOnePothole(Long id);
+    void reviewPotholes(Pothole pothole);
 
+    void deletePothole(long potholeId);
+
+    Pothole getOnePothole(Long id);
 }
