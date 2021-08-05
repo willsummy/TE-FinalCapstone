@@ -6,7 +6,7 @@ export default {
         return axios.post('/pothole', pothole,)
     },
 
-    getList(pothole) {
+    getList() {
         return axios.get('/pothole')
     }
 }

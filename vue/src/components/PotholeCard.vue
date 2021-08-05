@@ -1,22 +1,21 @@
 <template>
   <div>
-
+      <div>{{pothole.user_id}}</div>
+      <div>{{pothole.date_reported}}</div>
+      <div>{{pothole.time_reported}}</div>
+      <div>{{pothole.address}}</div>
+      <div>{{pothole.latitude}}</div>
+      <div>{{pothole.longitude}}</div>
+      <div>{{pothole.description}}</div>
+      <div>{{pothole.size}}</div>
   </div>
 </template>
 
 <script>
-import service from '../services/PotholeService'
+
 export default {
-    name: 'pothole-list',
-    data() {
-        return {
-            potholes: []
-        }
-    },
-
-    created() {
-
-    }
+    name: 'pothole-card',
+    props: ['pothole']
 
 }
 </script>
