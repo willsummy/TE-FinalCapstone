@@ -4,6 +4,7 @@ import javax.validation.constraints.NotEmpty;
 public class Pothole {
 
 
+    private long pothole_id;
 
     private Long user_id;
 
@@ -19,9 +20,9 @@ public class Pothole {
 
     private int rank;
 
-//    public Long getPotholeId() {
-//        return potholeId;
-//    }
+    public Long getPotholeId() {
+        return pothole_id;
+    }
 
 //    public void setPotholeId(Long potholeId) {
 //        this.potholeId = potholeId;

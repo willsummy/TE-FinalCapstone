@@ -33,19 +33,32 @@ public class PotholeController {
 
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/pothole", method = RequestMethod.GET)
     public List<Pothole> allPotholes() {
         return potholeDAO.getPotholesList();
     }
 
+    @RequestMapping(value = "/pothole", method = RequestMethod.PUT)
+    public void reviewUserPothole(@RequestBody Pothole pothole) {
+        potholeDAO.reviewPotholes(pothole);
+    }
+
+
+
 //    @PreAuthorize("hasRole('USER')")
 //    @ResponseStatus(HttpStatus.CREATED)
 //    @RequestMapping(value = "/pothole", method = RequestMethod.GET)
 //    public List<Pothole> getUsersPotholes( Principal principal) {
-//        User userIdList = userDAO
-//        return potholeDAO.getPotholesList();
-//    }
 //
+//        return potholeDAO.getPotholesList(userIdList);
+//    }
+
+
+    @RequestMapping(value = "/pothole", method = RequestMethod.DELETE)
+    public void deletePothole (@RequestBody Pothole pothole) {
+        Long potholeId= pothole.getPotholeId();
+        potholeDAO.deletePothole(potholeId);
+    }
+
 
 }
