@@ -8,9 +8,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
-//@PreAuthorize("isAuthenticated()")
+@PreAuthorize("isAuthenticated()")
 @CrossOrigin
 public class PotholeController {
 
@@ -20,7 +21,7 @@ public class PotholeController {
         this.potholeDAO = potholeDAO;
     }
 
-    //@PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/pothole", method = RequestMethod.POST)
     public void createPothole(@RequestBody Pothole pothole) {
@@ -31,5 +32,20 @@ public class PotholeController {
         }
 
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value = "/pothole", method = RequestMethod.GET)
+    public List<Pothole> allPotholes() {
+        return potholeDAO.getPotholesList();
+    }
+
+//    @PreAuthorize("hasRole('USER')")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @RequestMapping(value = "/pothole", method = RequestMethod.GET)
+//    public List<Pothole> getUsersPotholes( Principal principal) {
+//        User userIdList = userDAO
+//        return potholeDAO.getPotholesList();
+//    }
+//
 
 }
