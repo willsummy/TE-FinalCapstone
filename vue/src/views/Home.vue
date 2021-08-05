@@ -14,6 +14,7 @@
 
 <script>
 import GoogleMap from '../components/GoogleMap.vue'
+import PotholeService from '../services/PotholeService';
 export default {
   name: "home",
   components: {
