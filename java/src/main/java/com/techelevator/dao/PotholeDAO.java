@@ -7,7 +7,9 @@ public interface PotholeDAO {
 
     void createPothole(Pothole pothole);
 
-    List<Pothole> getPotholes();
+    List<Pothole> getPotholesList();
+
+    List<Pothole> getUsersPotholes(Long userId);
 
     Pothole getOnePothole(Long id);
 
