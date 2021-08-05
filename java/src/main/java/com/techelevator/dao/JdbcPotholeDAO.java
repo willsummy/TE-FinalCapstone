@@ -3,12 +3,15 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Pothole;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.techelevator.model.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,8 +35,27 @@ public class JdbcPotholeDAO implements PotholeDAO {
 
 
     @Override //inserting pothole object into pothole table
-    public List<Pothole> getPotholes() {
-        return null;
+    public List<Pothole> getPotholesList() {
+        List<Pothole> allPotholesList = new ArrayList<>();
+        String sql = "SELECT * FROM potholes";
+                SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while (results.next()) {
+            Pothole allPotholes = mapRowToPothole(results);
+            allPotholesList.add(allPotholes);
+        }
+        return allPotholesList;
+    }
+
+    @Override
+    public List<Pothole> getUsersPotholes(Long userId) {
+        List<Pothole> allPotholesList = new ArrayList<>();
+        String sql = "SELECT * FROM potholes WHERE user_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+        while (results.next()) {
+            Pothole allPotholes = mapRowToPothole(results);
+            allPotholesList.add(allPotholes);
+        }
+        return allPotholesList;
     }
 
     @Override
@@ -42,7 +64,7 @@ public class JdbcPotholeDAO implements PotholeDAO {
     }
 
 
-    private Pothole mapRowToTransfer(SqlRowSet rs) {
+    private Pothole mapRowToPothole(SqlRowSet rs) {
         Pothole pothole = new Pothole();
         //pothole.setPotholeId(rs.getLong("pothole_id"));
         pothole.setUser_id(rs.getLong("user_id"));
