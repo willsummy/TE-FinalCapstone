@@ -5,6 +5,10 @@
     <!-- <p>You must be authenticated to see this</p> -->
     <router-link v-bind:to="{name: 'report-form'}" >Report A Pothole</router-link>
   </div>
+
+  <div>
+    
+  </div>
 </div>
 </template>
 
