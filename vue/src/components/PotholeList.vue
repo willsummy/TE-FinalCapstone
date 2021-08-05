@@ -1,6 +1,6 @@
 <template>
 <div>
-  <pothole-card v-for="pothole in potholes" v-bind:key="pothole"></pothole-card>
+  <pothole-card v-for="pothole in potholes" v-bind:key="pothole.pothole_id" v-bind:pothole="pothole"></pothole-card>
   </div>
 </template>
 
@@ -10,21 +10,11 @@ import PotholeCard from '../components/PotholeCard.vue';
 
 export default {
     name: 'pothole-list',
-    data() {
-        return {
-            potholes: [],
-    
-        }
-    },
+    props: ["potholes"],
     components: {
         PotholeCard
 
     },
-
-    created() {
-        this.potholes = this.$store.state.potholes
-
-    }
 
 }
 </script>

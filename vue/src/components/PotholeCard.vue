@@ -1,13 +1,13 @@
 <template>
   <div>
-      <div>{{pothole.user_id}}</div>
-      <div>{{pothole.date_reported}}</div>
-      <div>{{pothole.time_reported}}</div>
-      <div>{{pothole.address}}</div>
-      <div>{{pothole.latitude}}</div>
-      <div>{{pothole.longitude}}</div>
-      <div>{{pothole.description}}</div>
-      <div>{{pothole.size}}</div>
+      <p>{{pothole.user_id}}</p>
+      <p>{{pothole.date_reported}}</p>
+      <p>{{pothole.time_reported}}</p>
+      <p>{{pothole.address}}</p>
+      <p>{{pothole.latitude}}</p>
+      <p>{{pothole.longitude}}</p>
+      <p>{{pothole.description}}</p>
+      <p>{{pothole.size}}</p>
   </div>
 </template>
 

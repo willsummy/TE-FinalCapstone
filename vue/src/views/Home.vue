@@ -4,40 +4,20 @@
     <h1>Home</h1>
     <!-- <p>You must be authenticated to see this</p> -->
     <router-link v-bind:to="{name: 'report-form'}" >Report A Pothole</router-link>
-
-    <div id="googlemap">
-      <GoogleMap/>
-    </div>
-    <pothole-list/>
-  </div>
-
-  <div>
+    <view-potholes/>
 
   </div>
 </div>
 </template>
 
 <script>
-
-import GoogleMap from '../components/GoogleMap.vue'
-import PotholeService from '../services/PotholeService';
-import PotholeList from '../components/PotholeList.vue';
+import ViewPotholes from '../components/ViewPotholes.vue'
 
 export default {
   name: "home",
-
   components: {
-    GoogleMap,
-    PotholeList
-  },
-
-  created() {
-    let potholes = null;
-   PotholeService.getList().then(response => {
-     potholes = response.data
-    })
-   this.$store.commit("SET_POTHOLES", potholes)
-}
+    ViewPotholes
+  }
 };
 
 
