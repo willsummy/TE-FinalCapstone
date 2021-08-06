@@ -28,9 +28,35 @@
 
 <script>
 export default {
-    name: "pothole-details"
-
-}
+    name: "pothole-details",
+    data() {
+      return {
+        center: {lat: 41.4993, lng: 81.6944}
+      }
+    },
+    mounted() {
+      this.geolocate();
+    },
+    methods: {
+      geolocate() {
+        navigator.geolocation.getCurrentPosition(position => {
+          this.center = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+        });
+      }
+    },
+    computed: {
+      place() {
+        const coords = this.$store.state.potholes.find(
+          pothole => {
+            return pothole.pothole_id == this.$route.params.id
+          }
+        )
+      }
+    }
+  }
 </script>
 
 <style>
