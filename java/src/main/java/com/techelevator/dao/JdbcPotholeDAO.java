@@ -10,6 +10,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,10 +85,17 @@ public class JdbcPotholeDAO implements PotholeDAO {
 
     private Pothole mapRowToPothole(SqlRowSet rs) {
         Pothole pothole = new Pothole();
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mm");
+        LocalDate date = LocalDate.parse(rs.getDate("date_reported").toString());
+        LocalTime time = LocalTime.parse(rs.getTime("time_reported").toString());
+        String dateText = date.format(dateFormat);
+        String timeText = time.format(timeFormat);
+
         pothole.setPothole_id(rs.getLong("pothole_id"));
         pothole.setUser_id(rs.getLong("user_id"));
-        pothole.setDateReported(rs.getString("date_reported"));
-        pothole.setTimeReported(rs.getString("time_reported"));
+        pothole.setDateReported(dateText);
+        pothole.setTimeReported(timeText);
         pothole.setAddress(rs.getString("address"));
         pothole.setLatitude(rs.getDouble("latitude"));
         pothole.setLongitude(rs.getDouble("longitude"));

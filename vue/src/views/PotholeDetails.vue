@@ -14,11 +14,11 @@
           </tr>
           <tr>
             <th>Date Reported</th>
-            <td>{{pothole.date_reported}}</td>
+            <td>{{pothole.dateReported}}</td>
           </tr>
           <tr>
             <th>Time Reported</th>
-            <td>{{pothole.time_reported}}</td>
+            <td>{{pothole.timeReported}}</td>
           </tr>
           <tr>
             <th>Address</th>
@@ -133,6 +133,6 @@ table, th, td{
   flex-direction: column;
   border: 1px solid black;
   text-align: center;
-  padding: .2em 
+  padding: .2em
 }
 </style>
