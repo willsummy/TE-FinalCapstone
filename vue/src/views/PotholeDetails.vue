@@ -3,8 +3,16 @@
     <div id="details-map">
       <div id="details">
         <!-- everything but description -->
-        <p>blah blah</p>
-        <p>whoa</p>
+        <p>{{pothole.pothole_id}}</p>
+        <p>{{pothole.user_id}}</p>
+        <p>{{pothole.data_reported}}</p>
+        <p>{{pothole.time_reported}}</p>
+        <p>{{pothole.address}}</p>
+        <p>{{pothole.latitude}}</p>
+        <p>{{pothole.longitude}}</p>
+        <p>{{pothole.size}}</p>
+
+
       </div>
       <div id="map-description">
         <!-- map and description -->
@@ -34,6 +42,7 @@
 
 <script>
 import PotholeService from '../services/PotholeService.js'
+
 export default {
     name: "pothole-details",
     data() {
