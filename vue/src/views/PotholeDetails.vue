@@ -3,15 +3,15 @@
     <div id="details-map">
       <div id="details">
         <!-- everything but description -->
-        <p>Pothole: {{pothole.potholeId}}</p>
+        <p>{{pothole.pothole_id}}</p>
         <p>{{pothole.user_id}}</p>
-        <p>{{pothole.date_reported}}</p>
+        <p>{{pothole.data_reported}}</p>
         <p>{{pothole.time_reported}}</p>
         <p>{{pothole.address}}</p>
         <p>{{pothole.latitude}}</p>
         <p>{{pothole.longitude}}</p>
-        <p>{{pothole.description}}</p>
         <p>{{pothole.size}}</p>
+        
         
       </div>
       <div id="map">
@@ -26,9 +26,17 @@
 </template>
 
 <script>
+
 export default {
     name: "pothole-details",
-    props: ['pothole']
+    data() {
+      return {
+        pothole: this.$store.state.potholes.find( pothole => pothole.pothole_id == this.$route.params.id)
+      }
+    },
+
+    
+    
     
   
 

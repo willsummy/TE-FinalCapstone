@@ -8,5 +8,6 @@ export default {
 
     getList() {
         return axios.get('/pothole')
-    }
+    },
+
 }
