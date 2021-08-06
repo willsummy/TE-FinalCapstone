@@ -3,21 +3,20 @@
     <div id="details-map">
       <div id="details">
         <!-- everything but description -->
+        <p>Pothole: {{pothole.potholeId}}</p>
+        <p>{{pothole.user_id}}</p>
+        <p>{{pothole.date_reported}}</p>
+        <p>{{pothole.time_reported}}</p>
+        <p>{{pothole.address}}</p>
+        <p>{{pothole.latitude}}</p>
+        <p>{{pothole.longitude}}</p>
+        <p>{{pothole.description}}</p>
+        <p>{{pothole.size}}</p>
+        
       </div>
       <div id="map">
         <!-- map and description -->
-        <GmapMap
-      :center='center'
-      :zoom='10'
-      style='width:100%;  height: 400px;'
-      >
-        <GmapMarker
-          :key="index"
-          v-for="(m, index) in filteredMarkers"
-          :position="m.position"
-          @click="center=m.position"
-        />
-      </GmapMap>
+        
       </div>
     </div>
     <div id="details-buttons">
@@ -29,6 +28,7 @@
 <script>
 export default {
     name: "pothole-details",
+    props: ['pothole']
     
   
 
