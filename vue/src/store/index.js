@@ -21,6 +21,7 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     potholes: [],
+    zipcodeFilter: ""
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -41,6 +42,13 @@ export default new Vuex.Store({
     },
     SET_POTHOLES(state, potholes) {
       state.potholes = potholes;
+    },
+
+    SET_ZIP_FILTER(state, zipcode) {
+      state.zipcodeFilter = zipcode;
+    },
+    RESET_ZIP_FILTER(state) {
+      state.zipcodeFilter = "";
     }
 
   }
