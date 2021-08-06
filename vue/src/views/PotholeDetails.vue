@@ -1,10 +1,15 @@
 <template>
+<div>
   <div>card details</div>
+  
+  </div>
 </template>
 
 <script>
 export default {
-    name: "card-details"
+    name: "pothole-details",
+    
+  
 
 }
 </script>
