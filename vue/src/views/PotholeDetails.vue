@@ -57,7 +57,10 @@
     </div>
     <div id="details-buttons">
       <!-- 3 buttons, edit, delete, status -->
-      <button id="edit">Edit</button>
+      <button id="edit" v-if="!isEditing" v-on:click='toggleEditing'>Edit</button>
+      <button type="submit" id="editSubmit" v-if="isEditing">Submit Edits</button>
+      <button id="editClose" v-if="isEditing">Discard Edits</button>
+
       <button id="delete">Delete</button>
       <button id="inspected">Set As Inspected</button>
       <button id="repaired">Set As Repaired</button>
@@ -72,7 +75,8 @@ export default {
     name: "pothole-details",
     data() {
       return {
-        pothole: this.$store.state.potholes.find( pothole => pothole.pothole_id == this.$route.params.id)
+        pothole: this.$store.state.potholes.find( pothole => pothole.pothole_id == this.$route.params.id),
+        isEditing: false
       }
     },
     created() {
@@ -96,6 +100,9 @@ export default {
             alert("Delete failed")
           }
         })
+      },
+      toggleEditing() {
+        this.isEditing = !this.isEditing
       }
     }
   }
