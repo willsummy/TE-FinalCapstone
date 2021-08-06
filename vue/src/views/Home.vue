@@ -4,14 +4,23 @@
     <h1>Home</h1>
     <!-- <p>You must be authenticated to see this</p> -->
     <router-link v-bind:to="{name: 'report-form'}" >Report A Pothole</router-link>
+    <view-potholes/>
+
   </div>
 </div>
 </template>
 
 <script>
+import ViewPotholes from '../components/ViewPotholes.vue'
+
 export default {
   name: "home",
+  components: {
+    ViewPotholes
+  }
 };
+
+
 </script>
 
 
@@ -29,10 +38,7 @@ export default {
     margin: auto;
     border-style: groove;
     border-color: black;
-    padding-left: 150px;
-    padding-right: 150px;
-    padding-bottom: 50px;
-    
+
   }
 
 </style>

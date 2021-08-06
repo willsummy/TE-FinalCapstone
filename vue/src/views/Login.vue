@@ -34,9 +34,10 @@
       />
       <router-link :to="{ name: 'register' }">Need an account?</router-link>
       <button type="submit">Sign in</button>
+      <router-link :to="{ name: 'anon-view' }">View Reported Potholes</router-link>
     </form>
   </div>
-  
+
   </div>
 </template>
 
@@ -84,7 +85,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
   }
   #form {
     display: flex;
@@ -97,14 +98,14 @@ export default {
     padding-left: 150px;
     padding-right: 150px;
     padding-bottom: 50px;
-    
+
   }
 
   .form-control {
     text-align: center;
   }
 
-  
+
 
 
 </style>

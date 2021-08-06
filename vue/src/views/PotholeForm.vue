@@ -10,7 +10,7 @@
                   <option value="large">Large</option>
               </select>
           </div>
-          <div>
+          <div v-if="!useCurrentLocation">
             <h2>Search and add a pin</h2>
             <GmapAutocomplete
                 @place_changed='setAddress'
@@ -44,7 +44,8 @@ export default {
                 address: null,
                 user_id: this.$store.state.user.id
 
-            }
+            },
+            useCurrentLocation: false
         }
     },
 
