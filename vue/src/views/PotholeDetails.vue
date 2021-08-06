@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: "card-details"
+    name: "pothole-details"
 
 }
 </script>

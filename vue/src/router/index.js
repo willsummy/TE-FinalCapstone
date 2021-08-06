@@ -7,7 +7,7 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import PotholeForm from '../views/PotholeForm.vue'
 import AnonView from '../views/AnonView.vue'
-import CardDetails from '../views/CardDetails.vue'
+import PotholeDetails from '../views/PotholeDetails.vue'
 Vue.use(Router)
 
 /**
@@ -75,7 +75,7 @@ const router = new Router({
     {
       path: "/pothole/{id}",
       name: "PotholeDetails",
-      component: CardDetails,
+      component: PotholeDetails,
       meta: {
         requiresAuth: true
 
