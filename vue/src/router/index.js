@@ -73,7 +73,7 @@ const router = new Router({
       }
     },
     {
-      path: "/pothole/{id}",
+      path: "/pothole/:id",
       name: "PotholeDetails",
       component: PotholeDetails,
       meta: {

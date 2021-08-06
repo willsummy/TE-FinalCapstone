@@ -8,5 +8,9 @@ export default {
 
     getList() {
         return axios.get('/pothole')
+    },
+
+    delete(id) {
+        return axios.delete(`/pothole${id}`)
     }
 }
