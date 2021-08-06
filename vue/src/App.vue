@@ -17,7 +17,16 @@
 </template>
 
 <script>
+import PotholeService from './services/PotholeService.js'
 export default {
+  created() {
+      let potholes = null;
+      PotholeService.getList().then(response => {
+        potholes = response.data;
+        this.$store.commit("SET_POTHOLES", potholes)
+      })
+
+    }
 }
 </script>
 

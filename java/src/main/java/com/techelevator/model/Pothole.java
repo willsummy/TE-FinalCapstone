@@ -1,5 +1,9 @@
 package com.techelevator.model;
+import org.apache.tomcat.jni.Local;
+
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Pothole {
 
@@ -20,11 +24,15 @@ public class Pothole {
 
     private int rank;
 
-    public Long getPotholeId() {
+    private String dateReported;
+
+    private String timeReported;
+
+    public Long getPothole_id() {
         return pothole_id;
     }
 
-    public void setPotholeId(Long pothole_id) {
+    public void setPothole_id(Long pothole_id) {
         this.pothole_id = pothole_id;
     }
 
@@ -36,21 +44,21 @@ public class Pothole {
         this.user_id = user_id;
     }
 
-//    public String getDateReported() {
-//        return dateReported;
-//    }
+    public String getDateReported() {
+        return dateReported;
+    }
+
+    public void setDateReported(String dateReported) {
+        this.dateReported = dateReported;
+    }
 //
-//    public void setDateReported(String dateReported) {
-//        this.dateReported = dateReported;
-//    }
-//
-//    public String getTimeReported() {
-//        return timeReported;
-//    }
-//
-//    public void setTimeReported(String timeReported) {
-//        this.timeReported = timeReported;
-//    }
+    public String getTimeReported() {
+        return timeReported;
+    }
+
+    public void setTimeReported(String timeReported) {
+        this.timeReported = timeReported;
+    }
 
     public String getAddress() {
         return address;

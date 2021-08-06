@@ -9,7 +9,6 @@
 
 <script>
 import GoogleMap from '../components/GoogleMap.vue'
-import PotholeService from '../services/PotholeService';
 import PotholeList from '../components/PotholeList.vue';
 
 export default {
@@ -20,17 +19,11 @@ export default {
     },
     props: ["zipcode"],
 
-    created() {
-        let potholes = null;
-        PotholeService.getList().then(response => {
-        potholes = response.data;
-        this.$store.commit("SET_POTHOLES", potholes)
-        })
 
-    }
 }
 </script>
 
 <style>
+
 
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="card" v-on:click="cardClick">
-      <p>Pothole: {{pothole.potholeId}}</p>
+      <p>Pothole: {{pothole.pothole_id}}</p>
       <p>{{pothole.user_id}}</p>
       <p>{{pothole.date_reported}}</p>
       <p>{{pothole.time_reported}}</p>
@@ -23,7 +23,7 @@ export default {
     methods: {
       cardClick() {
         if (this.$store.state.user.authorities[0].name === "ROLE_ADMIN") {
-          this.$router.push(`/pothole/${this.pothole.potholeId}`)
+          this.$router.push(`/pothole/${this.pothole.pothole_id}`)
         } else {
           const splitAddress = this.pothole.address.split(",");
           const splitZip = splitAddress[splitAddress.length - 2].split(" ")
