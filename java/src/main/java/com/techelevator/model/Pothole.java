@@ -24,9 +24,9 @@ public class Pothole {
         return pothole_id;
     }
 
-//    public void setPotholeId(Long potholeId) {
-//        this.potholeId = potholeId;
-//    }
+    public void setPotholeId(Long pothole_id) {
+        this.pothole_id = pothole_id;
+    }
 
     public Long getUser_id() {
         return user_id;

@@ -18,6 +18,7 @@ export default {
         GoogleMap,
         PotholeList
     },
+    props: ["zipcode"],
 
     created() {
         let potholes = null;

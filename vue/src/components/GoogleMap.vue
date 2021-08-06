@@ -2,12 +2,12 @@
   <div>
     <GmapMap
       :center='center'
-      :zoom='12'
+      :zoom='10'
       style='width:100%;  height: 400px;'
     >
       <GmapMarker
         :key="index"
-        v-for="(m, index) in markers"
+        v-for="(m, index) in filteredMarkers"
         :position="m.position"
         @click="center=m.position"
       />
@@ -20,9 +20,7 @@ export default {
   name: 'GoogleMap',
   data() {
     return {
-      center: {lat: 45.508, lng: -73.587},
-      currentPlace: null,
-      markers: [],
+      center: {lat: 41.4993, lng: 81.6944},
       places: [],
     }
   },
@@ -30,26 +28,6 @@ export default {
     this.geolocate();
   },
   methods: {
-    refreshPlace() {
-        this.currentPlace = this.$store.state.current;
-    },
-    setPlace(place) {
-      this.$store.commit("SET_PLACE", place);
-      this.refreshPlace();
-    },
-    addMarker() {
-      if (this.currentPlace) {
-        const marker = {
-          lat: this.currentPlace.geometry.location.lat(),
-          lng: this.currentPlace.geometry.location.lng(),
-        };
-        this.markers.push({ position: marker });
-        this.places.push(this.currentPlace);
-        this.center = marker;
-        this.$store.commit("CLEAR_PLACE");
-        this.refreshPlace();
-      }
-    },
     geolocate() {
       navigator.geolocation.getCurrentPosition(position => {
         this.center = {
@@ -59,6 +37,18 @@ export default {
       });
     },
   },
+
+  computed: {
+    filteredMarkers() {
+      const filtered = this.$store.state.potholes.filter( pothole => {
+        return pothole.address.includes(this.$store.state.zipcodeFilter)
+      })
+      return filtered.map( pothole => {
+        const marker = { lat: pothole.latitude, lng: pothole.longitude };
+        return {position: marker}
+      })
+    }
+  }
 };
 </script>
 

@@ -82,7 +82,7 @@ public class JdbcPotholeDAO implements PotholeDAO {
 
     private Pothole mapRowToPothole(SqlRowSet rs) {
         Pothole pothole = new Pothole();
-        //pothole.setPotholeId(rs.getLong("pothole_id"));
+        pothole.setPotholeId(rs.getLong("pothole_id"));
         pothole.setUser_id(rs.getLong("user_id"));
         //pothole.setDateReported(rs.getString("date_reported"));
         //pothole.setTimeReported(rs.getString("time_reported"));
