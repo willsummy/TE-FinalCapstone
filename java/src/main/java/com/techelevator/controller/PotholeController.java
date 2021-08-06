@@ -56,7 +56,7 @@ public class PotholeController {
 
     @RequestMapping(value = "/pothole", method = RequestMethod.DELETE)
     public void deletePothole (@RequestBody Pothole pothole) {
-        Long potholeId= pothole.getPothole_id();
+        Long potholeId = pothole.getPothole_id();
         potholeDAO.deletePothole(potholeId);
     }
 

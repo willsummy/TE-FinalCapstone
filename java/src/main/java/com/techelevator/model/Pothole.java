@@ -1,5 +1,7 @@
 package com.techelevator.model;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Pothole {
 
@@ -20,6 +22,10 @@ public class Pothole {
 
     private int rank;
 
+    private String dateReported;
+
+    private String timeReported;
+
     public Long getPothole_id() {
         return pothole_id;
     }
@@ -36,21 +42,21 @@ public class Pothole {
         this.user_id = user_id;
     }
 
-//    public String getDateReported() {
-//        return dateReported;
-//    }
+    public String getDateReported() {
+        return dateReported;
+    }
+
+    public void setDateReported(String dateReported) {
+        this.dateReported = dateReported;
+    }
 //
-//    public void setDateReported(String dateReported) {
-//        this.dateReported = dateReported;
-//    }
-//
-//    public String getTimeReported() {
-//        return timeReported;
-//    }
-//
-//    public void setTimeReported(String timeReported) {
-//        this.timeReported = timeReported;
-//    }
+    public String getTimeReported() {
+        return timeReported;
+    }
+
+    public void setTimeReported(String timeReported) {
+        this.timeReported = timeReported;
+    }
 
     public String getAddress() {
         return address;
