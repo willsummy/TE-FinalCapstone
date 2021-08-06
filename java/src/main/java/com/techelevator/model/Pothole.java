@@ -20,11 +20,11 @@ public class Pothole {
 
     private int rank;
 
-    public Long getPotholeId() {
+    public Long getPothole_id() {
         return pothole_id;
     }
 
-    public void setPotholeId(Long pothole_id) {
+    public void setPothole_id(Long pothole_id) {
         this.pothole_id = pothole_id;
     }
 
