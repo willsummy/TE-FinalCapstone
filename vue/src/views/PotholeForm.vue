@@ -11,7 +11,7 @@
               </select>
           </div>
           <div v-if="!useCurrentLocation">
-            <h2>Search and add a pin</h2>
+
             <GmapAutocomplete
                 @place_changed='setAddress'
             />

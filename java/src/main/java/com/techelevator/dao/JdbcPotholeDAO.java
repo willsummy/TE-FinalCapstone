@@ -72,8 +72,8 @@ public class JdbcPotholeDAO implements PotholeDAO {
     }
 
     @Override
-    public void deletePothole(long potholeId) {
-        String sql = "DELETE FROM pothole WHERE pothole_id = ? ";
+    public void deletePothole(Long potholeId) {
+        String sql = "DELETE FROM potholes WHERE pothole_id = ? ";
         jdbcTemplate.update(sql, potholeId);
     }
 

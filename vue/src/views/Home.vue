@@ -1,18 +1,23 @@
 <template>
 <div id="master">
   <div class="home">
-    <h1>Home</h1>
-    <!-- <p>You must be authenticated to see this</p> -->
-    <router-link v-bind:to="{name: 'report-form'}" >Report A Pothole</router-link>
+    <div id='home-header'>
 
-    <div id="zipcode-filter">
-      <label for="zipcode">Filter by Zipcode</label>
-      <br>
-      <input type="text" id="zipcode" v-model="zipcode" />
-      <br>
-      <button type="sumbit" v-on:click.prevent="set_zip_filter(zipcode)">Filter</button>
-      <button type="submit" v-on:click.prevent="reset_zip_filter">View All</button>
+      <div id='homeandreport'>
+        <h1>Home</h1>
+        <router-link v-bind:to="{name: 'report-form'}" >Report A Pothole</router-link>
+      </div>
+
+
+      <div id="filter">
+        <label for="zipcode">Filter by Zipcode</label>
+        <input type="text" id="zipcode" v-model="zipcode" />
+        <button type="sumbit" v-on:click.prevent="set_zip_filter(zipcode)">Filter</button>
+        <button type="submit" v-on:click.prevent="reset_zip_filter">View All</button>
+      </div>
     </div>
+
+
 
 
     <view-potholes/>
@@ -61,24 +66,30 @@ export default {
 
 <style>
 #master {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  border-radius: 3px;
+  margin: 3px;
+  background-color:  rgb(200,200,200);
+  padding: 3px;
 }
 .home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: space-around;
-    margin: auto;
-    border-style: groove;
-    border-color: black;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
-  }
-  #zipcode-filter {
-    text-align: center;
-    margin-top: 10px;
-  }
+#home-header {
+  display: flex;
+  flex-direction: row;
+}
 
+#homeandreport {
+  flex-grow: 1;
+}
+
+#filter {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="header">
-      <div id="title">Pothole Tracker</div>
+      <h1 id="title">Pothole Tracker</h1>
       <div id="nav">
         <router-link id='homelink' class="routerlink" v-bind:class="{ bold: $route.path == '/' }" v-bind:to="{ name: 'home' }">Home</router-link>
         <router-link id='loginlink' class="routerlink" v-bind:class="{ bold: $route.path == '/login' }" v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
@@ -9,7 +9,7 @@
         <router-link id='logoutlink' class="routerlink" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
       </div>
     </div>
-    <div>
+    <div id='router'>
       <router-view />
     </div>
 
@@ -32,48 +32,49 @@ export default {
 
 <style>
 
-body {
-  font-family: sans-serif;
+#app {
 }
 
-div#app, div#nav {
+#app, #header {
   display: flex;
   flex-direction: column;
-
-}
-
-div#header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
   align-items: center;
-  background-color: lightgrey;
-  border-radius: 10px;
+  font-family: sans-serif;
+  color: rgb(40, 40, 40);
 }
 
-div#nav {
-  padding-right: 20px;
-  align-items: flex-end;
+#header, #router {
+  width: 100%;
+  border-style: inset;
+  border-radius: 5px;
+  border-color:  rgb(40, 40, 40);
+  background-color:  rgb(150, 150, 150);
 }
 
-div#nav > .routerlink {
+#header {
+
+  margin-bottom: 10px;
+}
+
+#title {
+  font-size: 60px;
+  margin: 0px;
+}
+
+#nav {
+  width: 100%;
+  display: block;
+  text-align: center;
+  background-color: rgb(200,200,200);
+  padding-bottom: 3px;
+  padding-top: 3px;
+  border-radius: 3px;
+}
+
+.routerlink {
+  margin-left: 5px;
+  margin-right: 5px;
   text-decoration: none;
-  color: rgb(70, 70, 70);
-
-}
-
-div#nav > .routerlink:hover {
-  font-size: 120%;
-}
-
-div#title {
-  font-size: 70px;
-  padding-left: 20px;
-}
-
-.routerlink.bold {
-  font-weight: bold;
 }
 
 </style>

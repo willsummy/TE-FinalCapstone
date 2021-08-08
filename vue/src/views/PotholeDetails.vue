@@ -101,7 +101,7 @@
         <!-- map and description -->
         <GmapMap
           :center='center'
-          :zoom='10'
+          :zoom='15'
           style='width:100%;  height: 400px;'
         >
         <GmapMarker
@@ -119,7 +119,7 @@
       <button type="submit" id="editSubmit" v-if="isEditing" v-on:click.prevent="toggleEditing(); submitEdit();">Submit Edits</button>
       <button id="editClose" v-if="isEditing" v-on:click="toggleEditing">Discard Edits</button>
 
-      <button id="delete">Delete</button>
+      <button id="delete" v-on:click="deletePothole">Delete</button>
       <button id="inspected">Set As Inspected</button>
       <button id="repaired">Set As Repaired</button>
     </div>
@@ -158,10 +158,11 @@ export default {
       }
     },
     methods: {
-      delete() {
+      deletePothole() {
         PotholeService.delete(this.$route.params.id).then( response => {
           if (response.status == 200) {
             alert("Deleted")
+            this.$router.push('/')
           } else {
             alert("Delete failed")
           }
@@ -221,6 +222,7 @@ export default {
 }
 
 #details-map > #map-description {
+  margin: .2em;
   width: 180vw;
   flex-grow: 3;
   display: flex;
@@ -229,6 +231,15 @@ export default {
 
 #description {
   overflow-wrap: break-word;
+  background-color:  rgb(200,200,200);
+  border-radius: 3px;
+  flex-grow: 1;
+  margin-bottom: 0px;
+  padding: .2em;
+}
+
+#map {
+  flex-grow: 2;
 }
 
 table, th, td{
@@ -236,6 +247,7 @@ table, th, td{
   flex-direction: column;
   border: 1px solid black;
   text-align: center;
-  padding: .2em
+  margin: .2em;
+  background-color:  rgb(200,200,200);
 }
 </style>
