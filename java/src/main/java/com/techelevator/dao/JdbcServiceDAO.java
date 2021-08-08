@@ -1,41 +1,81 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.Pothole;
+import com.techelevator.model.Service;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
-@Service
+@org.springframework.stereotype.Service
 public class JdbcServiceDAO implements ServiceDAO {
+    private JdbcTemplate jdbcTemplate;
+
+    public JdbcServiceDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
 
     @Override
-    public void createService(com.techelevator.model.Service service) {
-        
+    public void setAsInspected(Long id) {
+
+    }
+
+    @Override //why are we using com.techelevator.model.Service service to specify the service?
+    public void createService(Service service) {
+        String sql = "INSERT INTO service (pothole_id, date_reported, date_inspected, employee_id," +
+                " service_status_id, repaired_date)"
+                + " Values (?, CURRENT_DATE, CURRENT_DATE, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql);
     }
 
     @Override
-    public List<com.techelevator.model.Service> getServiceList() {
+    public List<Service> getServiceList() {
         return null;
     }
 
     @Override
-    public void reviewServices(com.techelevator.model.Service service) {
+    public void updateService(Service service) {
 
     }
 
     @Override
-    public void deleteService(long serviceId) {
+    public void deleteService(Long serviceId) {
 
     }
 
+
     @Override
-    public com.techelevator.model.Service getOneService(Long id) {
+    public Service getOneService(Long id) {
         return null;
     }
+
+
+    private Service mapRowToService(SqlRowSet rs) {
+
+    Service service = new Service();
+    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    LocalDate dateReported = LocalDate.parse(rs.getDate("date_reported").toString());
+    LocalDate inspectedDate = LocalDate.parse(rs.getDate("date_inspected").toString());
+    LocalDate repairedDate = LocalDate.parse(rs.getDate("repaired_date").toString());
+    String dateReportedText = dateReported.format(dateFormat);
+    String dateInspectedText = inspectedDate.format(dateFormat);
+    String dateRepairedText = repairedDate.format(dateFormat);
+
+        service.setService_id(rs.getLong("service_id"));
+        service.setPothole_id(rs.getLong("pothole_id"));
+        service.setEmployee_id(rs.getLong("employee_id"));
+        service.setService_status_id(rs.getLong("service_status_id"));
+        service.setRepaired_date(dateRepairedText);
+        service.setDate_reported(dateReportedText);
+        service.setDate_inspected(dateInspectedText);
+        return service;
+    }
+
 }
+
+

@@ -11,6 +11,7 @@ public class Service {
     private String date_inspected;
     private Long employee_id;
     private Long service_status_id;
+    private String repaired_date;
 
     public Long getService_id() {
         return service_id;
@@ -68,7 +69,7 @@ public class Service {
         this.repaired_date = repaired_date;
     }
 
-    private String repaired_date;
+
 
 
 
