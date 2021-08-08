@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import PotholeService from '../services/PotholeService.js'
 import ViewPotholes from '../components/ViewPotholes.vue'
 
 export default {
@@ -45,6 +46,12 @@ export default {
   },
   created() {
     this.$store.commit("RESET_ZIP_FILTER")
+    let potholes = null;
+    PotholeService.getList().then(response => {
+      potholes = response.data;
+      this.$store.commit("SET_POTHOLES", potholes)
+    })
+
   }
 };
 

@@ -62,12 +62,21 @@ export default {
                     this.$router.push('/')
 
                 })
+            this.$store.commit("ADD_POTHOLE", this.pothole)
         },
         setAddress(place) {
             this.pothole.address = place.formatted_address;
             this.pothole.latitude = place.geometry.location.lat();
             this.pothole.longitude = place.geometry.location.lng();
         }
+
+    },
+    created() {
+      let potholes = null;
+      PotholeService.getList().then(response => {
+        potholes = response.data;
+        this.$store.commit("SET_POTHOLES", potholes)
+      })
 
     }
 

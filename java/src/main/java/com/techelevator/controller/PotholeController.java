@@ -21,7 +21,7 @@ public class PotholeController {
         this.potholeDAO = potholeDAO;
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/pothole", method = RequestMethod.POST)
     public void createPothole(@RequestBody Pothole pothole) {

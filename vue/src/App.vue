@@ -26,7 +26,7 @@ export default {
         this.$store.commit("SET_POTHOLES", potholes)
       })
 
-    }
+  }
 }
 </script>
 

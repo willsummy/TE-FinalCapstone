@@ -22,7 +22,7 @@ public class Pothole {
 
     private String size;
 
-    private int rank;
+    private Integer rank;
 
     private String dateReported;
 
@@ -100,11 +100,11 @@ public class Pothole {
         this.size = size;
     }
 
-    public int getRank() {
+    public Integer getRank() {
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(Integer rank) {
         this.rank = rank;
     }
 }

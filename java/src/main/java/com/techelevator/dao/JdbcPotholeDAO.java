@@ -64,7 +64,7 @@ public class JdbcPotholeDAO implements PotholeDAO {
 
     @Override
     public void reviewPotholes(Pothole pothole) {
-        String sql = "UPDATE pothole SET description = ?, address = ?, " +
+        String sql = "UPDATE potholes SET address = ?, " +
                 "latitude = ?, longitude = ?, description = ?, size = ?, rank = ?  WHERE pothole_id = ?";
         jdbcTemplate.update(sql, pothole.getAddress(), pothole.getLatitude(),
                 pothole.getLongitude(), pothole.getDescription(), pothole.getSize(),
