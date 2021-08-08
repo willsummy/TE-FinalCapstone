@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @PreAuthorize("isAuthenticated()")
@@ -31,5 +32,33 @@ public class PotholeController {
         }
 
     }
+
+    @RequestMapping(value = "/pothole", method = RequestMethod.GET)
+    public List<Pothole> allPotholes() {
+        return potholeDAO.getPotholesList();
+    }
+
+    @RequestMapping(value = "/pothole", method = RequestMethod.PUT)
+    public void reviewUserPothole(@RequestBody Pothole pothole) {
+        potholeDAO.reviewPotholes(pothole);
+    }
+
+
+
+//    @PreAuthorize("hasRole('USER')")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @RequestMapping(value = "/pothole", method = RequestMethod.GET)
+//    public List<Pothole> getUsersPotholes( Principal principal) {
+//
+//        return potholeDAO.getPotholesList(userIdList);
+//    }
+
+
+    @RequestMapping(value = "/pothole", method = RequestMethod.DELETE)
+    public void deletePothole (@RequestBody Pothole pothole) {
+        Long potholeId = pothole.getPothole_id();
+        potholeDAO.deletePothole(potholeId);
+    }
+
 
 }

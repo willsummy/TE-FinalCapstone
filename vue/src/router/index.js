@@ -6,6 +6,8 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 import PotholeForm from '../views/PotholeForm.vue'
+import AnonView from '../views/AnonView.vue'
+import PotholeDetails from '../views/PotholeDetails.vue'
 Vue.use(Router)
 
 /**
@@ -58,9 +60,26 @@ const router = new Router({
       name: "report-form",
       component: PotholeForm,
       meta: {
-        requiresAuth: true 
+        requiresAuth: true
       }
 
+    },
+    {
+      path: "/anon",
+      name: "anon-view",
+      component: AnonView,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/pothole/:id",
+      name: "PotholeDetails",
+      component: PotholeDetails,
+      meta: {
+        requiresAuth: true
+
+      }
     }
   ]
 })

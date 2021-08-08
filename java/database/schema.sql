@@ -48,7 +48,7 @@ CREATE TABLE potholes (
         date_reported date NOT NULL,
         time_reported time NOT NULL,
         description varchar NULL,
-        address varchar NOT NULL,
+        address varchar NULL,
         latitude decimal NOT NULL,
         longitude decimal NOT NULL,
         size varchar NOT NULL,
