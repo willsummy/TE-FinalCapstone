@@ -120,7 +120,7 @@
       <button id="editClose" v-if="isEditing" v-on:click="toggleEditing">Discard Edits</button>
 
       <button id="delete" v-on:click="deletePothole">Delete</button>
-      <button id="createService">Create New Service</button>
+      <button id="createService" v-on:click="createNewService">Create New Service</button>
     </div>
   </div>
 </template>
