@@ -6,7 +6,6 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -28,8 +27,8 @@ public class JdbcServiceDAO implements ServiceDAO {
     @Override //why are we using com.techelevator.model.Service service to specify the service?
     public void createService(Service service) {
         String sql = "INSERT INTO service (pothole_id, date_reported, date_inspected, employee_id," +
-                " service_status_id, repaired_date)"
-                + " Values (?, CURRENT_DATE, CURRENT_DATE, ?, ?, ?, ?, ?)";
+                " service_status_id, date_repaired,service_description)"
+                + " Values (?, CURRENT_DATE, CURRENT_DATE, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql);
     }
 
@@ -70,9 +69,10 @@ public class JdbcServiceDAO implements ServiceDAO {
         service.setPothole_id(rs.getLong("pothole_id"));
         service.setEmployee_id(rs.getLong("employee_id"));
         service.setService_status_id(rs.getLong("service_status_id"));
-        service.setRepaired_date(dateRepairedText);
+        service.setDate_repaired(dateRepairedText);
         service.setDate_reported(dateReportedText);
         service.setDate_inspected(dateInspectedText);
+        service.setService_description(rs.getString("service_description"));
         return service;
     }
 
