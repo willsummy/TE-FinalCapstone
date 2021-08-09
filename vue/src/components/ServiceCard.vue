@@ -1,15 +1,49 @@
 <template>
     <div>
         <div>
-            <button id="deleteService">Delete</button>
-            <button id="setAsInspected">Set As Inspected</button>
-            <button id="setAsRepaired">Set As Inspected</button>
+            <button id="deleteService" v-on:click="deleteService">Delete</button>
+            <button id="setAsInspected" v-on:click="setAsInspected" v-if="service.service_status == 1">Set As Inspected</button>
+            <button id="setAsRepaired" v-on:click="setAsRepaired" v-if="service.service_status == 2">Set As Repaired</button>
+            <span v-if="service.service_status == 3">Pothole has been repaired</span>
         </div>
     </div>
 </template>
 
 <script>
+import ServiceService from '../services/ServiceService.vue'
 export default {
+
+    methods: {
+        deleteService() {
+            ServiceService.deleteService(this.$route.params.id).then( response => {
+                if( response.status == 200 ) {
+                    alert("Pothole Service Deleted")
+                    this.refreshServices()
+                } else alert("Delete unsuccessful")
+            })
+        },
+        refreshServices() {
+            ServiceService.getList(this.$route.params.id).then( response => {
+                if (response.status == 200) {
+                    this.$store.commit("SET_SERVICES", response.data);
+                } else alert("Could not refresh Services")
+            })
+        },
+        setAsInspected() {
+            ServiceService.setAsInspected(this.$route.params.id).then( response => {
+                if( response.status == 200) {
+                    this.refreshServices()
+                } else alert("Unable to change service status")
+            })
+        },
+        setAsRepaired() {
+            ServiceService.setAsRepaired(this.$route.params.id).then( response => {
+                if(response.status == 200) {
+                    this.refreshServices()
+                } else alert("Unable to change service status")
+            })
+        }
+    }
 
 }
 </script>
