@@ -218,7 +218,7 @@ export default {
 }
 #details-map > #map-description {
   margin: .2em;
-  max-width: 70vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
