@@ -8,8 +8,15 @@
         <router-link id='reportlink' v-bind:to="{name: 'report-form'}" >Report A Pothole</router-link>
       </div>
 
+      <select  v-model="filterType" name="filterType" id="filterType">
+        <option disabled default value="">Please select type of filter</option>
+        <option value="zipcode">Zipcode</option>
+        <option value="city">City</option>
+        <option value="my-submissions">My Submissions</option>
+      </select>
 
-      <div id="filter">
+
+      <div id="filter" v-if="filterType == 'zipcode'">
         <label for="zipcode">Filter by Zipcode</label>
         <input type="text" id="zipcode" v-model="zipcode" />
         <button type="sumbit" v-on:click.prevent="set_zip_filter(zipcode)">Filter</button>
@@ -34,7 +41,8 @@ export default {
   name: "home",
   data() {
     return {
-      zipcode: ''
+      zipcode: '',
+      filterType: ''
     }
   },
   components: {

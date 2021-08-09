@@ -21,7 +21,8 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     potholes: [],
-    zipcodeFilter: "",
+    filterType: '',
+    filter: "",
     currentServices: []
   },
   mutations: {
@@ -48,12 +49,18 @@ export default new Vuex.Store({
       state.potholes.push(pothole);
     },
 
-    SET_ZIP_FILTER(state, zipcode) {
-      state.zipcodeFilter = zipcode;
+    SET_FILTER(state, filter) {
+      state.filter = filter;
     },
-    RESET_ZIP_FILTER(state) {
-      state.zipcodeFilter = "";
+    RESET_FILTER(state) {
+      state.filter = "";
     },
+    SET_FILTER_TYPE(state, type) {
+      state.filterType = type;
+    },
+    RESET_FILTER_TYPE(state) {
+      state.filterType = '',
+    }
 
     SET_SERVICES(state, services) {
       state.currentServices = services;
