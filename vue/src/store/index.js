@@ -49,8 +49,9 @@ export default new Vuex.Store({
       state.potholes.push(pothole);
     },
 
-    SET_FILTER(state, filter) {
-      state.filter = filter;
+    SET_FILTER(state, filterAndType) {
+      state.filter = filterAndType.filter;
+      state.filterType = filterAndType.filterType;
     },
     RESET_FILTER(state) {
       state.filter = "";
@@ -59,15 +60,15 @@ export default new Vuex.Store({
       state.filterType = type;
     },
     RESET_FILTER_TYPE(state) {
-      state.filterType = '',
-    }
+      state.filterType = ''
+    },
 
     DELETE_POTHOLE(state, id) {
       state.potholes.splice(
         state.potholes.findIndex(potholes => potholes.pothole_id === id), 1
       )
     },
-    
+
       SET_SERVICES(state, services) {
       state.currentServices = services;
     }

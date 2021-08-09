@@ -41,13 +41,40 @@ export default {
 
   computed: {
     filteredMarkers() {
-      const filtered = this.$store.state.potholes.filter( pothole => {
-        return pothole.address.includes(this.$store.state.zipcodeFilter)
-      })
-      return filtered.map( pothole => {
-        const marker = { lat: pothole.latitude, lng: pothole.longitude };
-        return {position: marker}
-      })
+      if(this.$store.state.filterType == "zipcode") {
+        const filtered = this.$store.state.potholes.filter( pothole => {
+          return pothole.address.includes(this.$store.state.filter)
+        })
+        return filtered.map( pothole => {
+          const marker = { lat: pothole.latitude, lng: pothole.longitude };
+          return {position: marker}
+        })
+      } else if (this.$store.state.filterType == "city") {
+        const filtered = this.$store.state.potholes.filter( pothole => {
+          const addressSplit = pothole.address.split(",")
+          const city = addressSplit[addressSplit.length-3]
+          return city.includes(this.$store.state.filter)
+        })
+        return filtered.map( pothole => {
+          const marker = { lat: pothole.latitude, lng: pothole.longitude };
+          return {position: marker}
+        })
+      } else if (this.$store.state.filterType == "user_id") {
+        const filtered = this.$store.state.potholes.filter( pothole => {
+          return pothole.user_id == this.$store.state.user.id
+        })
+        return filtered.map( pothole => {
+          const marker = { lat: pothole.latitude, lng: pothole.longitude };
+          return {position: marker}
+        })
+
+      } else {
+        return this.$store.state.potholes.map( pothole => {
+          const marker = { lat: pothole.latitude, lng: pothole.longitude };
+          return {position: marker}
+        })
+      }
+
     }
   }
 };
