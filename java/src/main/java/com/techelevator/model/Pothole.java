@@ -26,8 +26,6 @@ public class Pothole {
 
     private String dateReported;
 
-    private String timeReported;
-
     public Long getPothole_id() {
         return pothole_id;
     }
@@ -50,14 +48,6 @@ public class Pothole {
 
     public void setDateReported(String dateReported) {
         this.dateReported = dateReported;
-    }
-//
-    public String getTimeReported() {
-        return timeReported;
-    }
-
-    public void setTimeReported(String timeReported) {
-        this.timeReported = timeReported;
     }
 
     public String getAddress() {
