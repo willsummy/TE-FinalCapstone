@@ -68,7 +68,7 @@ export default {
 #master {
   border-radius: 3px;
   margin: 3px;
-  background-color:  rgb(200,200,200);
+  background-color:  #FFECD1;
   padding: 3px;
 }
 .home {

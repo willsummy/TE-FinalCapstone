@@ -45,7 +45,7 @@
 import ServiceService from '../services/ServiceService.vue'
 export default {
     name: 'service-card',
-    props: ['service']
+    props: ['service'],
 
     methods: {
         deleteService() {

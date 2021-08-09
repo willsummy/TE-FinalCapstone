@@ -40,7 +40,7 @@ export default {
   flex-direction: column;
   align-items: center;
   font-family: sans-serif;
-  color: rgb(40, 40, 40);
+  color: #001524;
 }
 
 #header, #router {
@@ -48,7 +48,7 @@ export default {
   border-style: inset;
   border-radius: 5px;
   border-color:  rgb(40, 40, 40);
-  background-color:  rgb(150, 150, 150);
+  background-color: #FF7D00;
 }
 
 #header {
@@ -65,7 +65,7 @@ export default {
   width: 100%;
   display: block;
   text-align: center;
-  background-color: rgb(200,200,200);
+  background-color: #FFECD1;
   padding-bottom: 3px;
   padding-top: 3px;
   border-radius: 3px;
