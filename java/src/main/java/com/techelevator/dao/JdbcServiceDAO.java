@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Pothole;
 import com.techelevator.model.Service;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -26,15 +28,22 @@ public class JdbcServiceDAO implements ServiceDAO {
 
     @Override //why are we using com.techelevator.model.Service service to specify the service?
     public void createService(Service service) {
-        String sql = "INSERT INTO service (pothole_id, date_reported, date_inspected, employee_id," +
-                " service_status_id, date_repaired,service_description)"
-                + " Values (?, CURRENT_DATE, CURRENT_DATE, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql);
+        String sql = "INSERT INTO service (pothole_id, date_reported, employee_id, service_status)"
+                + " Values (?, ?, ?, 1)";
+        jdbcTemplate.update(sql, service.getPothole_id(), service.getDate_reported(), service.getEmployee_id());
     }
 
     @Override
     public List<Service> getServiceList() {
-        return null;
+        List<Service> allServicesList = new ArrayList<>();
+        String sql = "SELECT service_id, pothole_id, date_reported, date_inspected, date_repaired," +
+                "employee_id, service_status_id, service_description FROM service WHERE pothole_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while (results.next()) {
+           Service allServices = mapRowToService(results);
+            allServicesList.add(allServices);
+        }
+        return allServicesList;
     }
 
     @Override
@@ -44,6 +53,11 @@ public class JdbcServiceDAO implements ServiceDAO {
 
     @Override
     public void deleteService(Long serviceId) {
+
+    }
+
+    @Override
+    public void deleteAllServices(Long potholeId) {
 
     }
 
