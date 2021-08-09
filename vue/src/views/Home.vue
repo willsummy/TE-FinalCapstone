@@ -8,12 +8,32 @@
         <router-link id='reportlink' v-bind:to="{name: 'report-form'}" >Report A Pothole</router-link>
       </div>
 
+      <select  v-model="filterType" name="filterType" id="filterType">
+        <option disabled default value="">Please select type of filter</option>
+        <option value="zipcode">Zipcode</option>
+        <option value="city">City</option>
+        <option value="user_id">My Submissions</option>
+      </select>
 
-      <div id="filter">
+
+      <div id="zipfilter" v-if="filterType == 'zipcode'">
         <label for="zipcode">Filter by Zipcode</label>
         <input type="text" id="zipcode" v-model="zipcode" />
-        <button type="sumbit" v-on:click.prevent="set_zip_filter(zipcode)">Filter</button>
-        <button type="submit" v-on:click.prevent="reset_zip_filter">View All</button>
+        <button type="submit" v-on:click.prevent="set_filter(zipcode)">Filter</button>
+        <button type="submit" v-on:click.prevent="reset_filter">View All</button>
+      </div>
+
+      <div id="cityfilter" v-if="filterType == 'city'">
+        <label for="city">Filter by City</label>
+        <input type="text" id="city" v-model="city" />
+        <button type="submit" v-on:click.prevent="set_filter(city)">Filter</button>
+        <button type="submit" v-on:click.prevent="reset_filter">View All</button>
+      </div>
+
+      <div id="userfilter" v-if="filterType == 'user_id'">
+        <label for="user_id">My Submissions</label>
+        <button type="submit" v-on:click.prevent="set_filter(city)">Filter</button>
+        <button type="submit" v-on:click.prevent="reset_filter">View All</button>
       </div>
     </div>
 
@@ -34,23 +54,27 @@ export default {
   name: "home",
   data() {
     return {
-      zipcode: ''
+      zipcode: '',
+      city: '',
+      user_id: null,
+      filterType: ''
     }
   },
   components: {
     ViewPotholes
   },
   methods: {
-    set_zip_filter(zipcode) {
-      this.$store.commit("SET_ZIP_FILTER", zipcode)
+    set_filter(filter) {
+      this.$store.commit("SET_FILTER", {"filter": filter, "filterType": this.filterType})
     },
-    reset_zip_filter() {
-      this.$store.commit("RESET_ZIP_FILTER")
+    reset_filter() {
+      this.$store.commit("RESET_FILTER")
+      this.$store.commit("RESET_FILTER_TYPE")
       this.zipcode = ''
     }
   },
   created() {
-    this.$store.commit("RESET_ZIP_FILTER")
+    this.$store.commit("RESET_FILTER")
     let potholes = null;
     PotholeService.getList().then(response => {
       potholes = response.data;
@@ -103,7 +127,7 @@ export default {
   text-decoration: underline;
 }
 
-#filter {
+#zipfilter {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

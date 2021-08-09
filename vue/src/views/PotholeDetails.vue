@@ -120,14 +120,14 @@
       <button id="editClose" v-if="isEditing" v-on:click="toggleEditing">Discard Edits</button>
 
       <button id="delete" v-on:click="deletePothole">Delete</button>
-      <button id="inspected">Set As Inspected</button>
-      <button id="repaired">Set As Repaired</button>
+      <button id="createService" v-on:click="createNewService">Create New Service</button>
     </div>
   </div>
 </template>
 
 <script>
 import PotholeService from '../services/PotholeService.js'
+import ServiceService from '../services/ServiceService.js'
 
 export default {
     name: "pothole-details",
@@ -141,7 +141,10 @@ export default {
       }
     },
     created() {
-      this.refreshPotholes()
+      this.refreshPotholes();
+      this.refreshServices();
+
+
     },
     computed: {
       place() {
@@ -159,13 +162,16 @@ export default {
     },
     methods: {
       deletePothole() {
+        alert("Are you sure you want to delete pothole?")
         PotholeService.delete(this.$route.params.id).then( response => {
           if (response.status == 200) {
+            this.$store.commit("DELETE_POTHOLE", this.$route.params.id)
             alert("Deleted")
             this.$router.push('/')
           } else {
             alert("Delete failed")
           }
+          this.$router.push('/')
         })
       },
       toggleEditing() {
@@ -199,13 +205,36 @@ export default {
               time_reported: this.pothole.timeReported
           }
         })
+      },
+      createNewService() {
+        let newService = {
+          pothole_id: this.pothole.pothole_id,
+          employee_id: this.$store.state.user.id,
+          date_reported: this.pothole.dateReported
+        }
+        ServiceService.createService(newService)
+          .then( response => {
+            if(response.status == 201) {
+              alert("Service Created")
+            }
+          })
+      },
+      refreshServices() {
+        ServiceService.getList(this.$route.params.id)
+        .then( response => {
+          if (response.status == 200) {
+            this.$store.commit("SET_SERVICES", response.data)
+          } else {
+            alert("Could not retrieve Services")
+          }
+        })
       }
     }
   }
 
 </script>
 
-<style>
+<style scoped>
 
 #details-main {
   display: flex;
@@ -218,7 +247,7 @@ export default {
 }
 #details-map > #map-description {
   margin: .2em;
-  max-width: 70vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -248,4 +277,8 @@ table, th, td{
 #details-buttons {
   margin: .2em;
 }
+
+/* button:hover {
+  background-color:yellow;
+} */
 </style>

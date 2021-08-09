@@ -17,9 +17,29 @@ export default {
     },
     computed: {
     filteredPotholes() {
-      return this.potholes.filter( pothole => {
-        return pothole.address.includes(this.$store.state.zipcodeFilter)
-      })
+      if(this.$store.state.filterType == "zipcode") {
+        return this.$store.state.potholes.filter( pothole => {
+          return pothole.address.includes(this.$store.state.filter)
+        })
+
+
+      } else if (this.$store.state.filterType == "city") {
+        return this.$store.state.potholes.filter( pothole => {
+          const addressSplit = pothole.address.split(",")
+          const city = addressSplit[addressSplit.length-3]
+          return city.includes(this.$store.state.filter)
+        })
+
+
+      } else if (this.$store.state.filterType == "user_id") {
+        return this.$store.state.potholes.filter( pothole => {
+          return pothole.user_id == this.$store.state.user.id
+        })
+
+      } else {
+        return this.$store.state.potholes
+      }
+
     }
   }
 

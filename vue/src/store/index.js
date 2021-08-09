@@ -21,7 +21,9 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     potholes: [],
-    zipcodeFilter: ""
+    filterType: '',
+    filter: "",
+    currentServices: []
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -47,11 +49,28 @@ export default new Vuex.Store({
       state.potholes.push(pothole);
     },
 
-    SET_ZIP_FILTER(state, zipcode) {
-      state.zipcodeFilter = zipcode;
+    SET_FILTER(state, filterAndType) {
+      state.filter = filterAndType.filter;
+      state.filterType = filterAndType.filterType;
     },
-    RESET_ZIP_FILTER(state) {
-      state.zipcodeFilter = "";
+    RESET_FILTER(state) {
+      state.filter = "";
+    },
+    SET_FILTER_TYPE(state, type) {
+      state.filterType = type;
+    },
+    RESET_FILTER_TYPE(state) {
+      state.filterType = ''
+    },
+
+    DELETE_POTHOLE(state, id) {
+      state.potholes.splice(
+        state.potholes.findIndex(potholes => potholes.pothole_id === id), 1
+      )
+    },
+
+      SET_SERVICES(state, services) {
+      state.currentServices = services;
     }
 
   }
