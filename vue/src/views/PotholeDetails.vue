@@ -120,14 +120,14 @@
       <button id="editClose" v-if="isEditing" v-on:click="toggleEditing">Discard Edits</button>
 
       <button id="delete" v-on:click="deletePothole">Delete</button>
-      <button id="inspected">Set As Inspected</button>
-      <button id="repaired">Set As Repaired</button>
+      <button id="createService">Create New Service</button>
     </div>
   </div>
 </template>
 
 <script>
 import PotholeService from '../services/PotholeService.js'
+import ServiceService from '../services/ServiceService.js'
 
 export default {
     name: "pothole-details",
@@ -141,7 +141,10 @@ export default {
       }
     },
     created() {
-      this.refreshPotholes()
+      this.refreshPotholes();
+      this.refreshServices();
+
+
     },
     computed: {
       place() {
@@ -200,6 +203,29 @@ export default {
               description: this.pothole.description,
               date_reported: this.pothole.dateReported,
               time_reported: this.pothole.timeReported
+          }
+        })
+      },
+      createNewService() {
+        let newService = {
+          pothole_id: this.pothole.pothole_id,
+          employee_id: this.$store.state.user.id,
+          date_reported: this.pothole.dateReported
+        }
+        ServiceService.createService(newService)
+          .then( response => {
+            if(response.status == 200) {
+              alert("Service Created")
+            }
+          })
+      },
+      refreshServices() {
+        ServiceService.getList(this.$route.params.id)
+        .then( response => {
+          if (response.status == 200) {
+            this.$store.commit("SET_SERVICES", response.data)
+          } else {
+            alert("Could not retrieve Services")
           }
         })
       }

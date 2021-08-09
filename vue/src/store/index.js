@@ -21,7 +21,8 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     potholes: [],
-    zipcodeFilter: ""
+    zipcodeFilter: "",
+    currentServices: []
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -58,6 +59,8 @@ export default new Vuex.Store({
       state.potholes.splice(
         state.potholes.findIndex(potholes => potholes.pothole_id === id), 1
       )
+    SET_SERVICES(state, services) {
+      state.currentServices = services;
     }
 
   }
