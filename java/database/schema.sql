@@ -52,7 +52,7 @@ CREATE TABLE potholes (
         latitude decimal NOT NULL,
         longitude decimal NOT NULL,
         size varchar NOT NULL,
-        rank int NULL,
+        rank int NULL DEFAULT -1,
         
         CONSTRAINT PK_potholes PRIMARY KEY (pothole_id),
         CONSTRAINT FK_pothole_user FOREIGN KEY (user_id) REFERENCES users (user_id)
