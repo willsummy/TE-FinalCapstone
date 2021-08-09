@@ -66,12 +66,12 @@ export default {
     margin: auto;
     border-style: groove;
     border-color: black;
+    width: 100%;
 
   }
   #zipcode-filter {
     text-align: center;
     margin-top: 10px;
   }
-
 
 </style>

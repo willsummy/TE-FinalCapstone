@@ -49,6 +49,12 @@ export default new Vuex.Store({
     },
     RESET_ZIP_FILTER(state) {
       state.zipcodeFilter = "";
+    },
+
+    DELETE_POTHOLE(state, id) {
+      state.potholes.splice(
+        state.potholes.findIndex(potholes => potholes.pothole_id === id), 1
+      )
     }
 
   }

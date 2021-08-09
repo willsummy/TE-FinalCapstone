@@ -57,10 +57,10 @@
     </div>
     <div id="details-buttons">
       <!-- 3 buttons, edit, delete, status -->
-      <button id="edit">Edit</button>
-      <button id="delete">Delete</button>
-      <button id="inspected">Set As Inspected</button>
-      <button id="repaired">Set As Repaired</button>
+      <button id="edit" class="btn">Edit</button>
+      <button id="delete" class="btn" v-on:click="deletePothole">Delete</button>
+      <button id="inspected" class="btn">Set As Inspected</button>
+      <button id="repaired" class="btn">Set As Repaired</button>
     </div>
   </div>
 </template>
@@ -88,20 +88,23 @@ export default {
       }
     },
     methods: {
-      delete() {
+      deletePothole() {
+        alert("Are you sure you want to delete pothole?")
         PotholeService.delete(this.$route.params.id).then( response => {
           if (response.status == 200) {
+            this.$store.commit("DELETE_POTHOLE", this.$route.params.id)
             alert("Deleted")
           } else {
             alert("Delete failed")
           }
+          this.$router.push('/')
         })
       }
     }
   }
 </script>
 
-<style>
+<style scoped>
 
 #details-main {
   display: flex;
@@ -135,4 +138,8 @@ table, th, td{
   text-align: center;
   padding: .2em
 }
+
+/* button:hover {
+  background-color:yellow;
+} */
 </style>

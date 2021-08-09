@@ -11,6 +11,6 @@ export default {
     },
 
     delete(id) {
-        return axios.delete(`/pothole${id}`)
+        return axios.delete(`/pothole/${id}`)
     }
 }

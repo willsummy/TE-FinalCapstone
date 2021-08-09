@@ -7,6 +7,7 @@ import com.techelevator.model.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -64,7 +65,7 @@ public class JdbcPotholeDAO implements PotholeDAO {
 
     @Override
     public void reviewPotholes(Pothole pothole) {
-        String sql = "UPDATE pothole SET description = ?, address = ?, " +
+        String sql = "UPDATE potholes SET description = ?, address = ?, " +
                 "latitude = ?, longitude = ?, description = ?, size = ?, rank = ?  WHERE pothole_id = ?";
         jdbcTemplate.update(sql, pothole.getAddress(), pothole.getLatitude(),
                 pothole.getLongitude(), pothole.getDescription(), pothole.getSize(),
@@ -72,8 +73,8 @@ public class JdbcPotholeDAO implements PotholeDAO {
     }
 
     @Override
-    public void deletePothole(long potholeId) {
-        String sql = "DELETE FROM pothole WHERE pothole_id = ? ";
+    public void deletePothole(Long potholeId) {
+        String sql = "DELETE FROM potholes WHERE pothole_id = ? ";
         jdbcTemplate.update(sql, potholeId);
     }
 
