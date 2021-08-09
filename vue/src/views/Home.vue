@@ -5,7 +5,7 @@
 
       <div id='homeandreport'>
         <h1>Home</h1>
-        <router-link v-bind:to="{name: 'report-form'}" >Report A Pothole</router-link>
+        <router-link id='reportlink' v-bind:to="{name: 'report-form'}" >Report A Pothole</router-link>
       </div>
 
 
@@ -84,6 +84,23 @@ export default {
 
 #homeandreport {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+#homeandreport > h1 {
+  margin: 0px;
+}
+
+#reportlink {
+  text-decoration: none;
+  width: fit-content;
+  color: rgb(40, 40, 40);
+}
+
+#reportlink:hover {
+  text-decoration: underline;
 }
 
 #filter {

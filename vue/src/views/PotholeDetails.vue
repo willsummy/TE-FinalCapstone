@@ -216,21 +216,15 @@ export default {
   display: flex;
   flex-direction: row;
 }
-
-#details-map > #details {
-  flex-grow: 1;
-}
-
 #details-map > #map-description {
   margin: .2em;
-  width: 180vw;
-  flex-grow: 3;
+  max-width: 70vw;
   display: flex;
   flex-direction: column;
 }
 
 #description {
-  overflow-wrap: break-word;
+  word-wrap: break-word;
   background-color:  rgb(200,200,200);
   border-radius: 3px;
   flex-grow: 1;
@@ -249,5 +243,9 @@ table, th, td{
   text-align: center;
   margin: .2em;
   background-color:  rgb(200,200,200);
+}
+
+#details-buttons {
+  margin: .2em;
 }
 </style>

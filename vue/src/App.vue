@@ -75,6 +75,11 @@ export default {
   margin-left: 5px;
   margin-right: 5px;
   text-decoration: none;
+  color: rgb(40, 40, 40);
+}
+
+.routerlink:hover {
+  text-decoration: underline;
 }
 
 </style>
