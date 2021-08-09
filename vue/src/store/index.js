@@ -62,7 +62,13 @@ export default new Vuex.Store({
       state.filterType = '',
     }
 
-    SET_SERVICES(state, services) {
+    DELETE_POTHOLE(state, id) {
+      state.potholes.splice(
+        state.potholes.findIndex(potholes => potholes.pothole_id === id), 1
+      )
+    },
+    
+      SET_SERVICES(state, services) {
       state.currentServices = services;
     }
 

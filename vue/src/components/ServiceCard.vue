@@ -1,5 +1,33 @@
 <template>
+<div>
     <div>
+        <table >
+          <tr>
+            <th>Service Id</th>
+            <td>{{service.service_id}}</td>
+          </tr>
+          <tr>
+            <th>Pothole Id</th>
+            <td>{{service.pothole_id}}</td>
+          </tr>
+          <tr>
+            <th>Date Reported</th>
+            <td>{{service.date_reported}}</td>
+          </tr>
+          <tr>
+            <th>Date Inspected</th>
+            <td>{{service.date_inspected}}</td>
+          </tr>
+          <tr>
+            <th>Employee Id</th>
+            <td>{{service.employee_id}}</td>
+          </tr>
+          <tr>
+            <th>Service Status Id</th>
+            <td>{{service.service_status_id}}</td>
+          </tr>
+        </table>
+
         <div>
             <button id="deleteService" v-on:click="deleteService">Delete</button>
             <button id="setAsInspected" v-on:click="setAsInspected" v-if="service.service_status == 1">Set As Inspected</button>
@@ -7,11 +35,17 @@
             <span v-if="service.service_status == 3">Pothole has been repaired</span>
         </div>
     </div>
+
+
+
+</div>
 </template>
 
 <script>
 import ServiceService from '../services/ServiceService.vue'
 export default {
+    name: 'service-card',
+    props: ['service']
 
     methods: {
         deleteService() {

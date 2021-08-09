@@ -9,9 +9,11 @@ public class Service {
     private Long pothole_id;
     private String date_reported;
     private String date_inspected;
+    private String date_repaired;
     private Long employee_id;
     private Long service_status_id;
-    private String repaired_date;
+    private String service_description;
+
 
     public Long getService_id() {
         return service_id;
@@ -61,17 +63,19 @@ public class Service {
         this.service_status_id = service_status_id;
     }
 
-    public String getRepaired_date() {
-        return repaired_date;
+    public String getDate_repaired() {
+        return date_repaired;
     }
 
-    public void setRepaired_date(String repaired_date) {
-        this.repaired_date = repaired_date;
+    public void setDate_repaired(String date_repaired) {
+        this.date_repaired = date_repaired;
     }
 
+    public String getService_description() {
+        return service_description;
+    }
 
-
-
-
-
+    public void setService_description(String service_description) {
+        this.service_description = service_description;
+    }
 }

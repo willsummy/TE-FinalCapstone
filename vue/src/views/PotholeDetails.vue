@@ -162,13 +162,16 @@ export default {
     },
     methods: {
       deletePothole() {
+        alert("Are you sure you want to delete pothole?")
         PotholeService.delete(this.$route.params.id).then( response => {
           if (response.status == 200) {
+            this.$store.commit("DELETE_POTHOLE", this.$route.params.id)
             alert("Deleted")
             this.$router.push('/')
           } else {
             alert("Delete failed")
           }
+          this.$router.push('/')
         })
       },
       toggleEditing() {
@@ -231,7 +234,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 
 #details-main {
   display: flex;
@@ -274,4 +277,8 @@ table, th, td{
 #details-buttons {
   margin: .2em;
 }
+
+/* button:hover {
+  background-color:yellow;
+} */
 </style>
