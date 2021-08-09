@@ -53,10 +53,8 @@ public class PotholeController {
 //        return potholeDAO.getPotholesList(userIdList);
 //    }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/pothole/{id}", method = RequestMethod.DELETE)
-    public void deletePothole (@PathVariable Long id) {
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/pothole/{id}", method = RequestMethod.DELETE)
     public void deletePothole (@PathVariable Long id) {
         potholeDAO.deletePothole(id);
