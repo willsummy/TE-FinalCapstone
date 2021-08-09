@@ -3,7 +3,7 @@
     <div id="details-map">
       <div id="details">
         <!-- everything but description -->
-        <table >
+        <table>
           <tr>
             <th>Pothole ID</th>
             <td>{{pothole.pothole_id}}</td>
@@ -22,19 +22,77 @@
           </tr>
           <tr>
             <th>Address</th>
-            <td>{{pothole.address}}</td>
+            <td>
+              <span v-if="!isEditing">
+                {{pothole.address}}
+              </span>
+              <span v-if="isEditing">
+                <input type="text" v-model="submissionPothole.address">
+              </span>
+            </td>
           </tr>
           <tr>
-            <th>Latitude</th>
-            <td>{{pothole.latitude}}</td>
+            <th >Latitude</th>
+            <td>
+              <span v-if="!isEditing">
+                {{pothole.latitude}}
+              </span>
+              <span v-if="isEditing">
+                <input type="text" v-model="submissionPothole.latitude">
+              </span>
+            </td>
           </tr>
           <tr>
             <th>Longitude</th>
-            <td>{{pothole.longitude}}</td>
+            <td>
+              <span v-if="!isEditing">
+                {{pothole.longitude}}
+              </span>
+              <span v-if="isEditing">
+                <input type="text" v-model="submissionPothole.longitude">
+              </span>
+            </td>
           </tr>
           <tr>
             <th>Size</th>
-            <td>{{pothole.size}}</td>
+            <td>
+              <span v-if="!isEditing">
+                {{pothole.size}}
+              </span>
+              <span v-if="isEditing">
+                <label for="size">Size</label>
+                <select v-model="submissionPothole.size" name="size" id="size">
+                    <option disabled default value="">Please select size</option>
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th >Rank</th>
+            <td>
+              <span v-if="!isEditing">
+                {{rankDisplay}}
+              </span>
+              <span v-if="isEditing">
+                <label for="rank">Rank</label>
+                <select  v-model="submissionPothole.rank" name="rank" id="rank">
+                    <option disabled default value="-1">Please select rank</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+              </span>
+            </td>
           </tr>
         </table>
 
@@ -43,7 +101,7 @@
         <!-- map and description -->
         <GmapMap
           :center='center'
-          :zoom='10'
+          :zoom='15'
           style='width:100%;  height: 400px;'
         >
         <GmapMarker
@@ -57,10 +115,13 @@
     </div>
     <div id="details-buttons">
       <!-- 3 buttons, edit, delete, status -->
-      <button id="edit" class="btn">Edit</button>
-      <button id="delete" class="btn" v-on:click="deletePothole">Delete</button>
-      <button id="inspected" class="btn">Set As Inspected</button>
-      <button id="repaired" class="btn">Set As Repaired</button>
+      <button id="edit" v-if="!isEditing" v-on:click='toggleEditing'>Edit</button>
+      <button type="submit" id="editSubmit" v-if="isEditing" v-on:click.prevent="toggleEditing(); submitEdit();">Submit Edits</button>
+      <button id="editClose" v-if="isEditing" v-on:click="toggleEditing">Discard Edits</button>
+
+      <button id="delete" v-on:click="deletePothole">Delete</button>
+      <button id="inspected">Set As Inspected</button>
+      <button id="repaired">Set As Repaired</button>
     </div>
   </div>
 </template>
@@ -72,11 +133,15 @@ export default {
     name: "pothole-details",
     data() {
       return {
-        pothole: this.$store.state.potholes.find( pothole => pothole.pothole_id == this.$route.params.id)
+        isEditing: false,
+        pothole: this.$store.state.potholes.find( pothole => pothole.pothole_id == this.$route.params.id),
+
+        submissionPothole: {
+        }
       }
     },
     created() {
-      this.pothole = this.$store.state.potholes.find( pothole => pothole.pothole_id == this.$route.params.id)
+      this.refreshPotholes()
     },
     computed: {
       place() {
@@ -85,6 +150,11 @@ export default {
       },
       center() {
         return {lat: this.pothole.latitude, lng: this.pothole.longitude}
+      },
+      rankDisplay() {
+        if (this.pothole.rank < 0) {
+          return "Pothole Unranked"
+        } else return this.pothole.rank
       }
     },
     methods: {
@@ -94,14 +164,48 @@ export default {
           if (response.status == 200) {
             this.$store.commit("DELETE_POTHOLE", this.$route.params.id)
             alert("Deleted")
+            this.$router.push('/')
           } else {
             alert("Delete failed")
           }
           this.$router.push('/')
         })
+      },
+      toggleEditing() {
+        this.isEditing = !this.isEditing
+      },
+      submitEdit() {
+        PotholeService.edit(this.submissionPothole)
+          .then(response => {
+            if(response.status == 200) {
+              this.refreshPotholes();
+            } else alert("Edit Failed")
+          })
+      },
+      refreshPotholes() {
+        let potholes = null;
+        PotholeService.getList().then(response => {
+          potholes = response.data;
+          this.$store.commit("SET_POTHOLES", potholes);
+          this.pothole = this.$store.state.potholes.find( pothole => pothole.pothole_id == this.$route.params.id);
+          this.submissionPothole = {
+
+              pothole_id: this.pothole.pothole_id,
+              user_id: this.pothole.user_id,
+              address: this.pothole.address,
+              latitude: this.pothole.latitude,
+              longitude: this.pothole.longitude,
+              size: this.pothole.size,
+              rank: this.pothole.rank,
+              description: this.pothole.description,
+              date_reported: this.pothole.dateReported,
+              time_reported: this.pothole.timeReported
+          }
+        })
       }
     }
   }
+
 </script>
 
 <style scoped>
@@ -115,20 +219,24 @@ export default {
   display: flex;
   flex-direction: row;
 }
-
-#details-map > #details {
-  flex-grow: 1;
-}
-
 #details-map > #map-description {
-  width: 180vw;
-  flex-grow: 3;
+  margin: .2em;
+  max-width: 70vw;
   display: flex;
   flex-direction: column;
 }
 
 #description {
-  overflow-wrap: break-word;
+  word-wrap: break-word;
+  background-color:  rgb(200,200,200);
+  border-radius: 3px;
+  flex-grow: 1;
+  margin-bottom: 0px;
+  padding: .2em;
+}
+
+#map {
+  flex-grow: 2;
 }
 
 table, th, td{
@@ -136,7 +244,12 @@ table, th, td{
   flex-direction: column;
   border: 1px solid black;
   text-align: center;
-  padding: .2em
+  margin: .2em;
+  background-color:  rgb(200,200,200);
+}
+
+#details-buttons {
+  margin: .2em;
 }
 
 /* button:hover {

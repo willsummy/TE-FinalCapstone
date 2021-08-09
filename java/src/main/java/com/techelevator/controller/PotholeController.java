@@ -21,7 +21,7 @@ public class PotholeController {
         this.potholeDAO = potholeDAO;
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/pothole", method = RequestMethod.POST)
     public void createPothole(@RequestBody Pothole pothole) {
@@ -57,6 +57,8 @@ public class PotholeController {
     @RequestMapping(value = "/pothole/{id}", method = RequestMethod.DELETE)
     public void deletePothole (@PathVariable Long id) {
 
+    @RequestMapping(value = "/pothole/{id}", method = RequestMethod.DELETE)
+    public void deletePothole (@PathVariable Long id) {
         potholeDAO.deletePothole(id);
     }
 

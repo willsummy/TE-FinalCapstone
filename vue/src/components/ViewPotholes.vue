@@ -1,6 +1,6 @@
 <template>
-<div>
-    <div id="googlemap">
+<div id="googlemap">
+    <div >
       <GoogleMap/>
     </div>
     <pothole-list v-bind:potholes="$store.state.potholes"/>

@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div id="mapdiv">
     <GmapMap
+      id="gamp"
       :center='center'
       :zoom='10'
       style='width:100%;  height: 400px;'
@@ -53,11 +54,8 @@ export default {
 </script>
 
 <style>
-    div {
-    width: 100%;
-    }
     #map {
-        height: 600px;
-        background: gray;
+      height: 600px;
+      background: gray;
     }
 </style>
