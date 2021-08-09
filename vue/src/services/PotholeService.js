@@ -11,6 +11,10 @@ export default {
     },
 
     delete(id) {
-        return axios.delete(`/pothole${id}`)
+        return axios.delete(`/pothole/${id}`)
+    },
+
+    edit(pothole) {
+        return axios.put('/pothole', pothole)
     }
 }

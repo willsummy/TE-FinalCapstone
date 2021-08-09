@@ -43,6 +43,9 @@ export default new Vuex.Store({
     SET_POTHOLES(state, potholes) {
       state.potholes = potholes;
     },
+    ADD_POTHOLE(state, pothole) {
+      state.potholes.push(pothole);
+    },
 
     SET_ZIP_FILTER(state, zipcode) {
       state.zipcodeFilter = zipcode;

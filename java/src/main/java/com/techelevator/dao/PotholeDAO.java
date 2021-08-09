@@ -13,7 +13,7 @@ public interface PotholeDAO {
 
     void reviewPotholes(Pothole pothole);
 
-    void deletePothole(long potholeId);
+    void deletePothole(Long potholeId);
 
     Pothole getOnePothole(Long id);
 }

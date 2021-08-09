@@ -10,6 +10,7 @@
       <p>{{pothole.longitude}}</p>
       <p>{{pothole.description}}</p>
       <p>{{pothole.size}}</p>
+      <p>{{rankDisplay}}</p>
     </div>
 
   </div>
@@ -30,6 +31,13 @@ export default {
           const zipcode = splitZip[2];
           this.$store.commit("SET_ZIP_FILTER", zipcode)
         }
+      }
+    },
+    computed: {
+      rankDisplay() {
+        if (this.pothole.rank < 0) {
+          return "Pothole Unranked"
+        } else return this.pothole.rank
       }
     }
 
