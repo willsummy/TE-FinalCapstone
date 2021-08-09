@@ -33,10 +33,11 @@ public class ServiceController {
 
     }
 
-//    @RequestMapping(value = "/pothole", method = RequestMethod.GET)
-//    public List<Pothole> allPotholes() {
-//        return potholeDAO.getPotholesList();
-//    }
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @RequestMapping(value = "/service/{id}/list", method = RequestMethod.GET)
+    public List<Service> allServices(@PathVariable Long pothole_id) {
+        return serviceDAO.getServiceList();
+    }
 //
 //    @RequestMapping(value = "/pothole", method = RequestMethod.PUT)
 //    public void reviewUserPothole(@RequestBody Pothole pothole) {

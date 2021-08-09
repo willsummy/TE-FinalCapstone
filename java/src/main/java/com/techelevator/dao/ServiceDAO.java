@@ -15,6 +15,8 @@ public interface ServiceDAO {
 
     void deleteService (Long serviceId);
 
+    void deleteAllServices(Long potholeId);
+
     Service getOneService(Long id);
 
 }
