@@ -28,7 +28,7 @@ public class JdbcServiceDAO implements ServiceDAO {
 
     @Override //why are we using com.techelevator.model.Service service to specify the service?
     public void createService(Service service) {
-        String sql = "INSERT INTO service (pothole_id, date_reported, employee_id, service_status)"
+        String sql = "INSERT INTO service (pothole_id, date_reported, employee_id, service_status_id)"
                 + " Values (?, ?, ?, 1)";
         jdbcTemplate.update(sql, service.getPothole_id(), service.getDate_reported(), service.getEmployee_id());
     }

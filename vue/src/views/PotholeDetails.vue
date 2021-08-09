@@ -216,7 +216,8 @@ export default {
           .then( response => {
             if(response.status == 201) {
               alert("Service Created")
-            }
+              this.refreshServices()
+            } else alert("Service not created")
           })
       },
       refreshServices() {
