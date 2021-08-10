@@ -5,11 +5,11 @@ import java.util.List;
 
 public interface ServiceDAO {
 
-    void setAsInspected(Long id);
+    void setStatus(Service service);
 
     void createService (Service service);
 
-    List<Service> getServiceList();
+    List<Service> getServiceList(Long id);
 
     void updateService(Service service);
 
@@ -17,6 +17,5 @@ public interface ServiceDAO {
 
     void deleteAllServices(Long potholeId);
 
-    Service getOneService(Long id);
 
 }

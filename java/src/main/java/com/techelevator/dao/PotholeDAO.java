@@ -9,11 +9,11 @@ public interface PotholeDAO {
 
     List<Pothole> getPotholesList();
 
-    List<Pothole> getUsersPotholes(Long userId);
+   //List<Pothole> getUsersPotholes(Long userId);
 
     void reviewPotholes(Pothole pothole);
 
     void deletePothole(Long potholeId);
 
-    Pothole getOnePothole(Long id);
+    //Pothole getOnePothole(Long id);
 }

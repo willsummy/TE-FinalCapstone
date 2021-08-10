@@ -1,13 +1,10 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.ServiceDAO;
-import com.techelevator.model.Pothole;
 import com.techelevator.model.Service;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -35,30 +32,39 @@ public class ServiceController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/service/{id}/list", method = RequestMethod.GET)
-    public List<Service> allServices(@PathVariable Long pothole_id) {
-        return serviceDAO.getServiceList();
+    public List<Service> allServices(@PathVariable Long id) {
+        return serviceDAO.getServiceList(id);
     }
-//
-//    @RequestMapping(value = "/pothole", method = RequestMethod.PUT)
-//    public void reviewUserPothole(@RequestBody Pothole pothole) {
-//        potholeDAO.reviewPotholes(pothole);
+
+//    @PreAuthorize("hasAnyRole('ADMIN')")
+//    @RequestMapping(value = "/service/{id}", method = RequestMethod.GET)
+//    public Service getOneService(@PathVariable Long pothole_id) {
+//        return serviceDAO.getOneService(pothole_id);
 //    }
-//
-//
-//
-////    @PreAuthorize("hasRole('USER')")
-////    @ResponseStatus(HttpStatus.CREATED)
-////    @RequestMapping(value = "/pothole", method = RequestMethod.GET)
-////    public List<Pothole> getUsersPotholes( Principal principal) {
-////
-////        return potholeDAO.getPotholesList(userIdList);
-////    }
-//
-//
-//    @RequestMapping(value = "/pothole/{id}", method = RequestMethod.DELETE)
-//    public void deletePothole (@PathVariable Long id) {
-//        potholeDAO.deletePothole(id);
-//    }
-//
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @RequestMapping(value = "/service", method = RequestMethod.PUT)
+    public void updateService (@RequestBody Service service) {
+        serviceDAO.updateService(service);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @RequestMapping(value = "/service/status", method = RequestMethod.PUT)
+    public void setStatus (@RequestBody Service service) {
+        serviceDAO.setStatus(service);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @RequestMapping(value = "/service/{id}", method = RequestMethod.DELETE)
+    public void deleteService (@PathVariable Long id) {
+        serviceDAO.deleteService(id);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @RequestMapping(value = "/service-all/{id}", method = RequestMethod.DELETE)
+    public void deleteAllService (@PathVariable Long id) {
+        serviceDAO.deleteAllServices(id);
+    }
+
 
 }

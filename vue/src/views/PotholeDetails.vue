@@ -17,10 +17,6 @@
             <td>{{pothole.dateReported}}</td>
           </tr>
           <tr>
-            <th>Time Reported</th>
-            <td>{{pothole.timeReported}}</td>
-          </tr>
-          <tr>
             <th>Address</th>
             <td>
               <span v-if="!isEditing">
@@ -122,15 +118,23 @@
       <button id="delete" v-on:click="deletePothole">Delete</button>
       <button id="createService" v-on:click="createNewService">Create New Service</button>
     </div>
+
+    <div>
+      <service-list />
+    </div>
   </div>
 </template>
 
 <script>
 import PotholeService from '../services/PotholeService.js'
 import ServiceService from '../services/ServiceService.js'
+import ServiceList from '../components/ServiceList.vue'
 
 export default {
     name: "pothole-details",
+    components: {
+      ServiceList
+    },
     data() {
       return {
         isEditing: false,
@@ -162,17 +166,22 @@ export default {
     },
     methods: {
       deletePothole() {
-        alert("Are you sure you want to delete pothole?")
-        PotholeService.delete(this.$route.params.id).then( response => {
-          if (response.status == 200) {
-            this.$store.commit("DELETE_POTHOLE", this.$route.params.id)
-            alert("Deleted")
-            this.$router.push('/')
-          } else {
-            alert("Delete failed")
-          }
-          this.$router.push('/')
+        ServiceService.deleteServicesByPothole(this.$route.params.id).then( response => {
+          if(response.status == 200) {
+            PotholeService.delete(this.$route.params.id).then( response => {
+              if (response.status == 200) {
+                this.$store.commit("DELETE_POTHOLE", this.$route.params.id)
+                alert("Deleted")
+                this.$router.push('/')
+              } else {
+                alert("Delete pothole failed")
+              }
+              this.$router.push('/')
+            })
+          } else alert("Could not delete Services")
         })
+
+
       },
       toggleEditing() {
         this.isEditing = !this.isEditing

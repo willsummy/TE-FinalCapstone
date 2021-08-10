@@ -30,9 +30,17 @@
 
         <div>
             <button id="deleteService" v-on:click="deleteService">Delete</button>
-            <button id="setAsInspected" v-on:click="setAsInspected" v-if="service.service_status == 1">Set As Inspected</button>
-            <button id="setAsRepaired" v-on:click="setAsRepaired" v-if="service.service_status == 2">Set As Repaired</button>
-            <span v-if="service.service_status == 3">Pothole has been repaired</span>
+
+
+            <label for="service_status">Change Service Status</label>
+                <select  v-model="editedService.service_status_id" name="service_status" id="service_status">
+                    <option disabled default value="-1">Please select rank</option>
+                    <option value="1">Reported, Uninspected</option>
+                    <option value="2">Insepcted, Repair Pending</option>
+                    <option value="3">Repair Finished</option>
+                </select>
+
+            <button id="status-change-btn" v-on:click="setNewStatus">Set New Status</button>
         </div>
     </div>
 
@@ -42,14 +50,30 @@
 </template>
 
 <script>
-import ServiceService from '../services/ServiceService.vue'
+import ServiceService from '../services/ServiceService.js'
 export default {
     name: 'service-card',
     props: ['service'],
-
+    data() {
+        return {
+            editedService: {
+                service_id: '',
+                pothole_id: '',
+                date_reported: '',
+                date_inspected: '',
+                date_repaired: '',
+                employee_id: '',
+                service_status_id: '',
+                service_description: ''
+            }
+        }
+    },
+    created() {
+        this.editedService = this.service;
+    },
     methods: {
         deleteService() {
-            ServiceService.deleteService(this.$route.params.id).then( response => {
+            ServiceService.deleteService(this.service.service_id).then( response => {
                 if( response.status == 200 ) {
                     alert("Pothole Service Deleted")
                     this.refreshServices()
@@ -63,18 +87,11 @@ export default {
                 } else alert("Could not refresh Services")
             })
         },
-        setAsInspected() {
-            ServiceService.setAsInspected(this.$route.params.id).then( response => {
-                if( response.status == 200) {
-                    this.refreshServices()
-                } else alert("Unable to change service status")
-            })
-        },
-        setAsRepaired() {
-            ServiceService.setAsRepaired(this.$route.params.id).then( response => {
+        setNewStatus() {
+            ServiceService.setStatus(this.editedService).then( response => {
                 if(response.status == 200) {
-                    this.refreshServices()
-                } else alert("Unable to change service status")
+                    this.refreshServices();
+                } else alert("Could not update Service Status")
             })
         }
     }
