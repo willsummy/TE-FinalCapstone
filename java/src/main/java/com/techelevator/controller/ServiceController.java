@@ -1,13 +1,10 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.ServiceDAO;
-import com.techelevator.model.Pothole;
 import com.techelevator.model.Service;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -39,11 +36,11 @@ public class ServiceController {
         return serviceDAO.getServiceList();
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    @RequestMapping(value = "/service/{id}", method = RequestMethod.GET)
-    public Service getOneService(@PathVariable Long pothole_id) {
-        return serviceDAO.getOneService(pothole_id);
-    }
+//    @PreAuthorize("hasAnyRole('ADMIN')")
+//    @RequestMapping(value = "/service/{id}", method = RequestMethod.GET)
+//    public Service getOneService(@PathVariable Long pothole_id) {
+//        return serviceDAO.getOneService(pothole_id);
+//    }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/service", method = RequestMethod.PUT)
@@ -52,9 +49,9 @@ public class ServiceController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @RequestMapping(value = "/service{id}/status", method = RequestMethod.PUT)
-    public void setStatus (@RequestBody Long id) {
-        serviceDAO.setStatus(id);
+    @RequestMapping(value = "/service/status", method = RequestMethod.PUT)
+    public void setStatus (@RequestBody Service service) {
+        serviceDAO.setStatus(service);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

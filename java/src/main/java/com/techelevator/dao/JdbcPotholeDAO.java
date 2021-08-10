@@ -1,24 +1,15 @@
 package com.techelevator.dao;
 
-
 import com.techelevator.model.Pothole;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.techelevator.model.User;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Component
 public class JdbcPotholeDAO implements PotholeDAO {
 
     private JdbcTemplate jdbcTemplate;
@@ -50,18 +41,18 @@ public class JdbcPotholeDAO implements PotholeDAO {
         return allPotholesList;
     }
 
-    @Override
-    public List<Pothole> getUsersPotholes(Long userId) {
-        List<Pothole> allPotholesList = new ArrayList<>();
-        String sql = "SELECT pothole_id, user_id, date_reported, address," +
-                " latitude, longitude, description, size FROM potholes WHERE user_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-        while (results.next()) {
-            Pothole allPotholes = mapRowToPothole(results);
-            allPotholesList.add(allPotholes);
-        }
-        return allPotholesList;
-    }
+//    @Override
+//    public List<Pothole> getUsersPotholes(Long userId) {
+//        List<Pothole> allPotholesList = new ArrayList<>();
+//        String sql = "SELECT pothole_id, user_id, date_reported, address," +
+//                " latitude, longitude, description, size FROM potholes WHERE user_id = ?";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+//        while (results.next()) {
+//            Pothole allPotholes = mapRowToPothole(results);
+//            allPotholesList.add(allPotholes);
+//        }
+//        return allPotholesList;
+//    }
 
     @Override
     public void reviewPotholes(Pothole pothole) {
@@ -78,11 +69,10 @@ public class JdbcPotholeDAO implements PotholeDAO {
         jdbcTemplate.update(sql, potholeId);
     }
 
-    @Override
-    public Pothole getOnePothole(Long id) {
-        return null;
-    }
-
+//    @Override
+//    public Pothole getOnePothole(Long id) {
+//        return null;
+//    }
 
     private Pothole mapRowToPothole(SqlRowSet rs) {
         Pothole pothole = new Pothole();
@@ -101,6 +91,4 @@ public class JdbcPotholeDAO implements PotholeDAO {
         pothole.setRank(rs.getInt("rank"));
             return pothole;
     }
-
-
 }

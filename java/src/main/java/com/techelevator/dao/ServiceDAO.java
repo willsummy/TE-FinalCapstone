@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface ServiceDAO {
 
-    void setStatus(Long id);
+    void setStatus(Service service);
 
     void createService (Service service);
 
@@ -17,6 +17,5 @@ public interface ServiceDAO {
 
     void deleteAllServices(Long potholeId);
 
-    Service getOneService(Long id);
 
 }
