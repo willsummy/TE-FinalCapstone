@@ -5,7 +5,7 @@ export default {
         return axios.post("/service", newService)
     },
     getList(pothole_id) {
-        return axios.get(`/service/${pothole_id}`)
+        return axios.get(`/service/${pothole_id}/list`)
     },
     deleteService(pothole_id) {
         return axios.delete(`/service/${pothole_id}`)

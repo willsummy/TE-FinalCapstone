@@ -9,7 +9,7 @@ public interface ServiceDAO {
 
     void createService (Service service);
 
-    List<Service> getServiceList();
+    List<Service> getServiceList(Long id);
 
     void updateService(Service service);
 

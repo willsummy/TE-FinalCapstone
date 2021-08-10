@@ -35,8 +35,8 @@ public class ServiceController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/service/{id}/list", method = RequestMethod.GET)
-    public List<Service> allServices(@PathVariable Long pothole_id) {
-        return serviceDAO.getServiceList();
+    public List<Service> allServices(@PathVariable Long id) {
+        return serviceDAO.getServiceList(id);
     }
 //
 //    @RequestMapping(value = "/pothole", method = RequestMethod.PUT)

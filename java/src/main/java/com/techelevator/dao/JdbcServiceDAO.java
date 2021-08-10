@@ -34,11 +34,11 @@ public class JdbcServiceDAO implements ServiceDAO {
     }
 
     @Override
-    public List<Service> getServiceList() {
+    public List<Service> getServiceList(Long id) {
         List<Service> allServicesList = new ArrayList<>();
         String sql = "SELECT service_id, pothole_id, date_reported, date_inspected, date_repaired," +
                 "employee_id, service_status_id, service_description FROM service WHERE pothole_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
         while (results.next()) {
            Service allServices = mapRowToService(results);
             allServicesList.add(allServices);
@@ -73,19 +73,35 @@ public class JdbcServiceDAO implements ServiceDAO {
     Service service = new Service();
     DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate dateReported = LocalDate.parse(rs.getDate("date_reported").toString());
-    LocalDate inspectedDate = LocalDate.parse(rs.getDate("date_inspected").toString());
-    LocalDate repairedDate = LocalDate.parse(rs.getDate("repaired_date").toString());
     String dateReportedText = dateReported.format(dateFormat);
-    String dateInspectedText = inspectedDate.format(dateFormat);
-    String dateRepairedText = repairedDate.format(dateFormat);
+    LocalDate inspectedDate;
+    String dateInspectedText;
+    LocalDate repairedDate;
+    String dateRepairedText;
+    try {
+        inspectedDate = LocalDate.parse(rs.getDate("date_inspected").toString());
+        dateInspectedText = inspectedDate.format(dateFormat);
+        service.setDate_inspected(dateInspectedText);
+    } catch (Exception e) {
+
+    }
+
+    try {
+        repairedDate = LocalDate.parse(rs.getDate("repaired_date").toString());
+        dateRepairedText = repairedDate.format(dateFormat);
+        service.setDate_repaired(dateRepairedText);
+    } catch (Exception e) {
+
+    }
+
+
+
 
         service.setService_id(rs.getLong("service_id"));
         service.setPothole_id(rs.getLong("pothole_id"));
         service.setEmployee_id(rs.getLong("employee_id"));
         service.setService_status_id(rs.getLong("service_status_id"));
-        service.setDate_repaired(dateRepairedText);
         service.setDate_reported(dateReportedText);
-        service.setDate_inspected(dateInspectedText);
         service.setService_description(rs.getString("service_description"));
         return service;
     }
