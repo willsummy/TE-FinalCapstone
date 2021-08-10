@@ -40,7 +40,7 @@ public class JdbcPotholeDAO implements PotholeDAO {
     @Override //inserting pothole object into pothole table
     public List<Pothole> getPotholesList() {
         List<Pothole> allPotholesList = new ArrayList<>();
-        String sql = "SELECT pothole_id, user_id, date_reported, time_reported, address," +
+        String sql = "SELECT pothole_id, user_id, date_reported, address," +
                 " latitude, longitude, description, rank, size FROM potholes";
                 SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
@@ -53,7 +53,7 @@ public class JdbcPotholeDAO implements PotholeDAO {
     @Override
     public List<Pothole> getUsersPotholes(Long userId) {
         List<Pothole> allPotholesList = new ArrayList<>();
-        String sql = "SELECT pothole_id, user_id, date_reported, time_reported, address," +
+        String sql = "SELECT pothole_id, user_id, date_reported, address," +
                 " latitude, longitude, description, size FROM potholes WHERE user_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         while (results.next()) {
@@ -86,7 +86,7 @@ public class JdbcPotholeDAO implements PotholeDAO {
 
     private Pothole mapRowToPothole(SqlRowSet rs) {
         Pothole pothole = new Pothole();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(rs.getDate("date_reported").toString());
         String dateText = date.format(dateFormat);
 
