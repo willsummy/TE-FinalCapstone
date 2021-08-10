@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface ServiceDAO {
 
-    void setAsInspected(Long id);
+    void setStatus(Long id);
 
     void createService (Service service);
 

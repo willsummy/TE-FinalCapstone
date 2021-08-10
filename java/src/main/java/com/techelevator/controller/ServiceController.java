@@ -38,27 +38,36 @@ public class ServiceController {
     public List<Service> allServices(@PathVariable Long pothole_id) {
         return serviceDAO.getServiceList();
     }
-//
-//    @RequestMapping(value = "/pothole", method = RequestMethod.PUT)
-//    public void reviewUserPothole(@RequestBody Pothole pothole) {
-//        potholeDAO.reviewPotholes(pothole);
-//    }
-//
-//
-//
-////    @PreAuthorize("hasRole('USER')")
-////    @ResponseStatus(HttpStatus.CREATED)
-////    @RequestMapping(value = "/pothole", method = RequestMethod.GET)
-////    public List<Pothole> getUsersPotholes( Principal principal) {
-////
-////        return potholeDAO.getPotholesList(userIdList);
-////    }
-//
-//
-//    @RequestMapping(value = "/pothole/{id}", method = RequestMethod.DELETE)
-//    public void deletePothole (@PathVariable Long id) {
-//        potholeDAO.deletePothole(id);
-//    }
-//
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @RequestMapping(value = "/service/{id}", method = RequestMethod.GET)
+    public Service getOneService(@PathVariable Long pothole_id) {
+        return serviceDAO.getOneService(pothole_id);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @RequestMapping(value = "/service", method = RequestMethod.PUT)
+    public void updateService (@RequestBody Service service) {
+        serviceDAO.updateService(service);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @RequestMapping(value = "/service{id}/status", method = RequestMethod.PUT)
+    public void setStatus (@RequestBody Long id) {
+        serviceDAO.setStatus(id);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @RequestMapping(value = "/service/{id}", method = RequestMethod.DELETE)
+    public void deleteService (@PathVariable Long id) {
+        serviceDAO.deleteService(id);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @RequestMapping(value = "/service-all/{pothole_id}", method = RequestMethod.DELETE)
+    public void deleteAllService (@PathVariable Long id) {
+        serviceDAO.deleteAllServices(id);
+    }
+
 
 }

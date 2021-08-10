@@ -22,13 +22,15 @@ public class JdbcServiceDAO implements ServiceDAO {
 
 
     @Override
-    public void setAsInspected(Long id) {
-
+    public void setStatus(Long id) {
+       String sql = "UPDATE service SET service_status_id = ? WHERE service_id = ?";
+            jdbcTemplate.update(sql, service.getOneService().getService_status_id(), service );
     }
+
 
     @Override //why are we using com.techelevator.model.Service service to specify the service?
     public void createService(Service service) {
-        String sql = "INSERT INTO service (pothole_id, date_reported, employee_id, service_status)"
+        String sql = "INSERT INTO service (pothole_id, date_reported, employee_id, service_status_id)"
                 + " Values (?, ?, ?, 1)";
         jdbcTemplate.update(sql, service.getPothole_id(), service.getDate_reported(), service.getEmployee_id());
     }
@@ -53,7 +55,7 @@ public class JdbcServiceDAO implements ServiceDAO {
 
     @Override
     public void deleteService(Long serviceId) {
-
+git status
     }
 
     @Override
@@ -62,10 +64,10 @@ public class JdbcServiceDAO implements ServiceDAO {
     }
 
 
-    @Override
-    public Service getOneService(Long id) {
-        return null;
-    }
+//    @Override
+//    public Service getOneService(Long id) {
+//        return null;
+//    }
 
 
     private Service mapRowToService(SqlRowSet rs) {
