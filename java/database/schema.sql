@@ -11,6 +11,7 @@ DROP SEQUENCE IF EXISTS seq_user_id CASCADE;
 
 CREATE SEQUENCE seq_pothole_id
   INCREMENT BY 1
+  START WITH 2001
   NO MAXVALUE
   NO MINVALUE
   CACHE 1;
@@ -43,7 +44,7 @@ INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULi
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
 CREATE TABLE potholes (
-        pothole_id int DEFAULT nextval('seq_service_id'::regclass) NOT NULL,
+        pothole_id int DEFAULT nextval('seq_pothole_id'::regclass) NOT NULL,
         user_id int NOT NULL,
         date_reported date NOT NULL,
         description varchar NULL,
@@ -66,7 +67,7 @@ CREATE TABLE service_status (
 );
 
 CREATE TABLE service (
-        service_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
+        service_id int DEFAULT nextval('seq_service_id'::regclass) NOT NULL,
         pothole_id int NOT NULL,
         date_reported date NOT NULL,
         date_inspected date NULL,

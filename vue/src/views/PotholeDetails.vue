@@ -17,10 +17,6 @@
             <td>{{pothole.dateReported}}</td>
           </tr>
           <tr>
-            <th>Time Reported</th>
-            <td>{{pothole.timeReported}}</td>
-          </tr>
-          <tr>
             <th>Address</th>
             <td>
               <span v-if="!isEditing">
@@ -122,15 +118,23 @@
       <button id="delete" v-on:click="deletePothole">Delete</button>
       <button id="createService" v-on:click="createNewService">Create New Service</button>
     </div>
+
+    <div>
+      <service-list />
+    </div>
   </div>
 </template>
 
 <script>
 import PotholeService from '../services/PotholeService.js'
 import ServiceService from '../services/ServiceService.js'
+import ServiceList from '../components/ServiceList.vue'
 
 export default {
     name: "pothole-details",
+    components: {
+      ServiceList
+    },
     data() {
       return {
         isEditing: false,

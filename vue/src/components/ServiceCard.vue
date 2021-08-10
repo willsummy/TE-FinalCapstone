@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import ServiceService from '../services/ServiceService.vue'
+import ServiceService from '../services/ServiceService.js'
 export default {
     name: 'service-card',
     props: ['service'],
