@@ -10,11 +10,15 @@
                   <option value="large">Large</option>
               </select>
           </div>
-          <div v-if="!useCurrentLocation">
 
-            <GmapAutocomplete
+          <div >
+
+            <GmapAutocomplete v-if="!useCurrentLocation"
                 @place_changed='setAddress'
             />
+            <span v-if="useCurrentLocation" >Current Location Being Used</span>
+            <button v-if="!useCurrentLocation" v-on:click="useCurrentLocation = !useCurrentLocation; geolocate()">Use Current Location</button>
+            <button v-if="useCurrentLocation" v-on:click="useCurrentLocation = !useCurrentLocation">Lookup Address</button>
           </div>
           <div>
 
@@ -50,6 +54,14 @@ export default {
     },
 
     methods: {
+        geolocate() {
+            navigator.geolocation.getCurrentPosition(position => {
+                this.pothole.address = ''
+                this.pothole.latitude = position.coords.latitude
+                this.pothole.longitude = position.coords.longitude
+
+            });
+        },
         submit() {
             PotholeService
                 .add(this.pothole)
