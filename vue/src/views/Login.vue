@@ -92,9 +92,9 @@ export default {
     flex-direction: column;
     align-items: center;
     align-content: space-around;
-    margin: auto;
     border-style: groove;
     border-color: black;
+    border-radius: 25px;
     padding-left: 150px;
     padding-right: 150px;
     padding-bottom: 50px;

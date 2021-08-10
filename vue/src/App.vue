@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="header">
-      <h1 id="title">Pothole Tracker</h1>
+      <h1 id="title">Greater Cleveland Pothole Tracker</h1>
       <div id="nav">
         <router-link id='homelink' class="routerlink" v-bind:class="{ bold: $route.path == '/' }" v-bind:to="{ name: 'home' }">Home</router-link>
         <router-link id='loginlink' class="routerlink" v-bind:class="{ bold: $route.path == '/login' }" v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
@@ -81,5 +81,7 @@ export default {
 .routerlink:hover {
   text-decoration: underline;
 }
+
+
 
 </style>

@@ -1,10 +1,10 @@
 <template>
   <div id="mapdiv">
     <GmapMap
-      id="gamp"
+      id="map"
       :center='center'
       :zoom='10'
-      style='width:100%;  height: 400px;'
+    
     >
       <GmapMarker
         :key="index"
@@ -84,5 +84,14 @@ export default {
     #map {
       height: 600px;
       background: gray;
+      border: 5px solid #78290f;
+      width: 75%;
+      height: 400px;
+    }
+
+    #mapdiv {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
     }
 </style>
