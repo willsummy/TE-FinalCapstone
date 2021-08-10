@@ -86,7 +86,7 @@ public class JdbcPotholeDAO implements PotholeDAO {
 
     private Pothole mapRowToPothole(SqlRowSet rs) {
         Pothole pothole = new Pothole();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(rs.getDate("date_reported").toString());
         String dateText = date.format(dateFormat);
 
