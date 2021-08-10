@@ -28,9 +28,9 @@ public class JdbcServiceDAO implements ServiceDAO {
 
     @Override //why are we using com.techelevator.model.Service service to specify the service?
     public void createService(Service service) {
-        String sql = "INSERT INTO service (pothole_id, date_reported, employee_id, service_status)"
+        String sql = "INSERT INTO service (pothole_id, date_reported, employee_id, service_status_id)"
                 + " Values (?, ?, ?, 1)";
-        jdbcTemplate.update(sql, service.getPothole_id(), service.getDate_reported(), service.getEmployee_id());
+        jdbcTemplate.update(sql, service.getPothole_id(), LocalDate.parse(service.getDate_reported()), service.getEmployee_id());
     }
 
     @Override
@@ -71,7 +71,7 @@ public class JdbcServiceDAO implements ServiceDAO {
     private Service mapRowToService(SqlRowSet rs) {
 
     Service service = new Service();
-    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate dateReported = LocalDate.parse(rs.getDate("date_reported").toString());
     LocalDate inspectedDate = LocalDate.parse(rs.getDate("date_inspected").toString());
     LocalDate repairedDate = LocalDate.parse(rs.getDate("repaired_date").toString());
