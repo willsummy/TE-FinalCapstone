@@ -1,19 +1,16 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.Pothole;
 import com.techelevator.model.Service;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 @org.springframework.stereotype.Service
 public class JdbcServiceDAO implements ServiceDAO {
+
     private JdbcTemplate jdbcTemplate;
 
     public JdbcServiceDAO(JdbcTemplate jdbcTemplate) {
@@ -22,11 +19,13 @@ public class JdbcServiceDAO implements ServiceDAO {
 
 
     @Override
-    public void setAsInspected(Long id) {
-
+    public void setStatus(Service service) {
+       String sql = "UPDATE service SET service_status_id = ? WHERE service_id = ?";
+            jdbcTemplate.update(sql, service.getService_status_id(), service.getService_id());
     }
 
-    @Override //why are we using com.techelevator.model.Service service to specify the service?
+
+    @Override
     public void createService(Service service) {
         String sql = "INSERT INTO service (pothole_id, date_reported, employee_id, service_status_id)"
                 + " Values (?, ?, ?, 1)";
@@ -48,25 +47,25 @@ public class JdbcServiceDAO implements ServiceDAO {
 
     @Override
     public void updateService(Service service) {
-
+        String sql = "UPDATE service SET service_id = ?, pothole_id = ?, date_reported = ?, " +
+                "date_inspected = ?, date_repaired = ?, employee_id = ?, " +
+                "service_status_id = ?, service_description = ?";
+        jdbcTemplate.update(sql, service.getService_id(), service.getPothole_id(),
+                service.getDate_reported(), service.getDate_inspected(), service.getDate_repaired(),
+                service.getEmployee_id(), service.getService_status_id(), service.getService_description());
     }
 
     @Override
     public void deleteService(Long serviceId) {
-
+        String sql = "DELETE FROM service WHERE service_id = ?";
+        jdbcTemplate.update(sql, serviceId);
     }
 
     @Override
     public void deleteAllServices(Long potholeId) {
-
+        String sql = "DELETE FROM service WHERE pothole_id = ?";
+        jdbcTemplate.update(sql, potholeId);
     }
-
-
-    @Override
-    public Service getOneService(Long id) {
-        return null;
-    }
-
 
     private Service mapRowToService(SqlRowSet rs) {
 
