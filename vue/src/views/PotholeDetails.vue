@@ -166,17 +166,22 @@ export default {
     },
     methods: {
       deletePothole() {
-        alert("Are you sure you want to delete pothole?")
-        PotholeService.delete(this.$route.params.id).then( response => {
-          if (response.status == 200) {
-            this.$store.commit("DELETE_POTHOLE", this.$route.params.id)
-            alert("Deleted")
-            this.$router.push('/')
-          } else {
-            alert("Delete failed")
-          }
-          this.$router.push('/')
+        ServiceService.deleteServicesByPothole(this.$route.params.id).then( response => {
+          if(response.status == 200) {
+            PotholeService.delete(this.$route.params.id).then( response => {
+              if (response.status == 200) {
+                this.$store.commit("DELETE_POTHOLE", this.$route.params.id)
+                alert("Deleted")
+                this.$router.push('/')
+              } else {
+                alert("Delete pothole failed")
+              }
+              this.$router.push('/')
+            })
+          } else alert("Could not delete Services")
         })
+
+
       },
       toggleEditing() {
         this.isEditing = !this.isEditing

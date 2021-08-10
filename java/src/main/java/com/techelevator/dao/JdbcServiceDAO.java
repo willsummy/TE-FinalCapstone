@@ -20,8 +20,17 @@ public class JdbcServiceDAO implements ServiceDAO {
 
     @Override
     public void setStatus(Service service) {
-       String sql = "UPDATE service SET service_status_id = ? WHERE service_id = ?";
+        if (service.getService_status_id() == 2) {
+            String sql = "UPDATE service SET service_status_id = ?, date_inspected = CURRENT_DATE WHERE service_id = ?";
             jdbcTemplate.update(sql, service.getService_status_id(), service.getService_id());
+        } else if (service.getService_status_id() == 3) {
+            String sql = "UPDATE service SET service_status_id = ?, date_repaired = CURRENT_DATE WHERE service_id = ?";
+            jdbcTemplate.update(sql, service.getService_status_id(), service.getService_id());
+        } else {
+            String sql = "UPDATE service SET service_status_id = ?, date_inspected = null, date_repaired = null WHERE service_id = ?";
+            jdbcTemplate.update(sql, service.getService_status_id(), service.getService_id());
+        }
+
     }
 
 
@@ -86,7 +95,7 @@ public class JdbcServiceDAO implements ServiceDAO {
     }
 
     try {
-        repairedDate = LocalDate.parse(rs.getDate("repaired_date").toString());
+        repairedDate = LocalDate.parse(rs.getDate("date_repaired").toString());
         dateRepairedText = repairedDate.format(dateFormat);
         service.setDate_repaired(dateRepairedText);
     } catch (Exception e) {

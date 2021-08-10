@@ -61,7 +61,7 @@ public class ServiceController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @RequestMapping(value = "/service-all/{pothole_id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/service-all/{id}", method = RequestMethod.DELETE)
     public void deleteAllService (@PathVariable Long id) {
         serviceDAO.deleteAllServices(id);
     }

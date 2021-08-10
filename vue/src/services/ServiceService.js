@@ -7,13 +7,13 @@ export default {
     getList(pothole_id) {
         return axios.get(`/service/${pothole_id}/list`)
     },
-    deleteService(pothole_id) {
-        return axios.delete(`/service/${pothole_id}`)
+    deleteService(id) {
+        return axios.delete(`/service/${id}`)
     },
-    setAsInspected(service_id) {
-        return axios.put(`/service/${service_id}/inspected`)
+    deleteServicesByPothole(pothole_id) {
+        return axios.delete(`/service-all/${pothole_id}`)
     },
-    setAsRepaired(service_id) {
-        return axios.put(`service/${service_id}/repaired`)
+    setStatus(service) {
+        return axios.put('/service/status', service)
     }
 }
