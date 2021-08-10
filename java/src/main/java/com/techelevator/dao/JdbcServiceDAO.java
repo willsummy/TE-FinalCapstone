@@ -55,7 +55,7 @@ public class JdbcServiceDAO implements ServiceDAO {
 
     @Override
     public void deleteService(Long serviceId) {
-git status
+
     }
 
     @Override
