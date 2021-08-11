@@ -48,6 +48,21 @@ img {
   flex-direction: row;
 }
 
+#app {
+  background-color: #ffecd1;
+}
+
+#nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.routerlink {
+  background-color: #FF7D00;
+  box-shadow: 5px 5px #15616D;
+  padding: 5px;
+}
 
 
 </style>

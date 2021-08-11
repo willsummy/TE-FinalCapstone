@@ -80,6 +80,26 @@ export default {
 </script>
 
 <style>
+#form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  width: 40%;
+  
+}
+ 
+#master {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 
 </style>
