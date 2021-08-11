@@ -87,11 +87,13 @@ export default {
       border: 5px solid #78290f;
       width: 75%;
       height: 400px;
+      
     }
 
     #mapdiv {
       display: flex;
       flex-direction: row;
       justify-content: center;
+      
     }
 </style>
