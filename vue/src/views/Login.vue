@@ -80,32 +80,26 @@ export default {
 </script>
 
 <style>
+#form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
 
-  #master {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-  }
-  #form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: space-around;
-    margin: auto;
-    border-style: groove;
-    border-color: black;
-    padding-left: 150px;
-    padding-right: 150px;
-    padding-bottom: 50px;
-
-  }
-
-  .form-control {
-    text-align: center;
-  }
-
-
+#login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  width: 40%;
+  
+}
+ 
+#master {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 
 </style>

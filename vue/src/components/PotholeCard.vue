@@ -1,36 +1,36 @@
 <template>
   <div>
     <div id="card" v-on:click="cardClick">
-      <table >
-          <tr>
+      <table id="potholecardtable">
+          <tr id="potholecardtable">
             <th>Pothole ID</th>
             <td>{{pothole.pothole_id}}</td>
           </tr>
-          <tr>
+          <tr id="potholecardtable">
             <th>User ID</th>
             <td>{{pothole.user_id}}</td>
           </tr>
-          <tr>
+          <tr id="potholecardtable">
             <th>Date Reported</th>
             <td>{{pothole.dateReported}}</td>
           </tr>
-          <tr>
+          <tr id="potholecardtable">
             <th>Time Reported</th>
             <td>{{pothole.timeReported}}</td>
           </tr>
-          <tr>
+          <tr id="potholecardtable">
             <th>Address</th>
             <td>{{pothole.address}}</td>
           </tr>
-          <tr>
+          <tr id="potholecardtable">
             <th>Latitude</th>
             <td>{{pothole.latitude}}</td>
           </tr>
-          <tr>
+          <tr id="potholecardtable">
             <th>Longitude</th>
             <td>{{pothole.longitude}}</td>
           </tr>
-          <tr>
+          <tr id="potholecardtable">
             <th>Size</th>
             <td>{{pothole.size}}</td>
           </tr>
@@ -47,14 +47,7 @@ export default {
     props: ['pothole'],
     methods: {
       cardClick() {
-        if (this.$store.state.user.authorities[0].name === "ROLE_ADMIN") {
           this.$router.push(`/pothole/${this.pothole.pothole_id}`)
-        } else {
-          const splitAddress = this.pothole.address.split(",");
-          const splitZip = splitAddress[splitAddress.length - 2].split(" ")
-          const zipcode = splitZip[2];
-          this.$store.commit("SET_ZIP_FILTER", zipcode)
-        }
       }
     },
     computed: {
@@ -76,10 +69,10 @@ export default {
   width: 80%;
 }
 
-table, th, td{
+#potholecardtable{
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  border: 1px solid #FF7D00 ;
   text-align: center;
   padding: .2em;
 }

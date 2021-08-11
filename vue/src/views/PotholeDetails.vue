@@ -1,7 +1,48 @@
 <template>
   <div id="details-main">
+
     <div id="details-map">
+
+      <div id="map-description">
+        <div id="details-buttons" v-if="hasAdminStatus">
+      <!-- 3 buttons, edit, delete, status -->
+          <button id="edit" v-if="!isEditing" v-on:click='toggleEditing'>Edit</button>
+          <button type="submit" id="editSubmit" v-if="isEditing" v-on:click.prevent="toggleEditing(); submitEdit();">Submit Edits</button>
+          <button id="editClose" v-if="isEditing" v-on:click="toggleEditing">Discard Edits</button>
+
+          <button id="delete" v-on:click="deletePothole">Delete Pothole</button>
+
+
+          <button id="createService" v-on:click="createNewService" v-if="!hasService">Start Service</button>
+          <button id="deleteService" v-on:click="deleteService">Delete Service</button>
+
+
+            <label for="service_status">Change Service Status</label>
+                <select  v-model="editedService.service_status_id" name="service_status" id="service_status">
+                    <option disabled default value="-1">Please select rank</option>
+                    <option value="1">Reported, Uninspected</option>
+                    <option value="2">Insepcted, Repair Pending</option>
+                    <option value="3">Repair Finished</option>
+                </select>
+
+            <button id="status-change-btn" v-on:click="setNewStatus">Set New Status</button>
+        </div>
+        <!-- map and description -->
+        <GmapMap
+          :center='center'
+          :zoom='15'
+          style='width:100%;  height: 400px;'
+        >
+        <GmapMarker
+          :key="index"
+          :position="place.position"
+          @click="center=m.position"
+        />
+        </GmapMap>
+        <p id="description">{{this.pothole.description}}</p>
+      </div>
       <div id="details">
+
         <!-- everything but description -->
         <table>
           <tr>
@@ -90,64 +131,52 @@
               </span>
             </td>
           </tr>
+          <tr>
+            <th>Service Status</th>
+            <td>{{serviceStatus}}</td>
+          </tr>
         </table>
 
       </div>
-      <div id="map-description">
-        <!-- map and description -->
-        <GmapMap
-          :center='center'
-          :zoom='15'
-          style='width:100%;  height: 400px;'
-        >
-        <GmapMarker
-          :key="index"
-          :position="place.position"
-          @click="center=m.position"
-        />
-      </GmapMap>
-      <p id="description">{{this.pothole.description}}</p>
-      </div>
-    </div>
-    <div id="details-buttons">
-      <!-- 3 buttons, edit, delete, status -->
-      <button id="edit" v-if="!isEditing" v-on:click='toggleEditing'>Edit</button>
-      <button type="submit" id="editSubmit" v-if="isEditing" v-on:click.prevent="toggleEditing(); submitEdit();">Submit Edits</button>
-      <button id="editClose" v-if="isEditing" v-on:click="toggleEditing">Discard Edits</button>
 
-      <button id="delete" v-on:click="deletePothole">Delete</button>
-      <button id="createService" v-on:click="createNewService">Create New Service</button>
     </div>
 
-    <div>
-      <service-list />
-    </div>
   </div>
 </template>
 
 <script>
 import PotholeService from '../services/PotholeService.js'
 import ServiceService from '../services/ServiceService.js'
-import ServiceList from '../components/ServiceList.vue'
 
 export default {
     name: "pothole-details",
-    components: {
-      ServiceList
-    },
+
     data() {
       return {
         isEditing: false,
-        pothole: this.$store.state.potholes.find( pothole => pothole.pothole_id == this.$route.params.id),
+        pothole:{},
+        center: null,
 
         submissionPothole: {
+        },
+        service: this.$store.state.currentServices,
+        editedService: {
+                service_id: '',
+                pothole_id: '',
+                date_reported: '',
+                date_inspected: '',
+                date_repaired: '',
+                employee_id: '',
+                service_status_id: '',
+                service_description: ''
         }
       }
     },
     created() {
       this.refreshPotholes();
       this.refreshServices();
-
+      this.pothole = this.$store.state.potholes.find( pothole => pothole.pothole_id == this.$route.params.id);
+      this.center = {lat: this.pothole.latitude, lng: this.pothole.longitude}
 
     },
     computed: {
@@ -155,13 +184,19 @@ export default {
         const coords = { lat: this.pothole.latitude, lng: this.pothole.longitude}
         return { position: coords}
       },
-      center() {
-        return {lat: this.pothole.latitude, lng: this.pothole.longitude}
-      },
       rankDisplay() {
         if (this.pothole.rank < 0) {
           return "Pothole Unranked"
         } else return this.pothole.rank
+      },
+      hasAdminStatus() {
+        return this.$store.state.user.authorities[0].name === "ROLE_ADMIN"
+      },
+      hasService() {
+        return this.$store.state.currentServices.length >= 1
+      },
+      serviceStatus() {
+        return this.$store.state.currentServices.service_status_id
       }
     },
     methods: {
@@ -238,57 +273,43 @@ export default {
             alert("Could not retrieve Services")
           }
         })
-      }
+      },
+        setNewStatus() {
+
+            ServiceService.setStatus(this.editedService).then( response => {
+                if(response.status == 200) {
+                    this.refreshServices();
+                } else alert("Could not update Service Status")
+            })
+        },
+        deleteService() {
+            ServiceService.deleteService(this.service.service_id).then( response => {
+                if( response.status == 200 ) {
+                    alert("Pothole Service Deleted")
+                    this.refreshServices()
+                } else alert("Delete unsuccessful")
+            })
+        },
     }
   }
 
 </script>
 
 <style scoped>
-
-#details-main {
-  display: flex;
-  flex-direction: column;
-}
-
 #details-map {
   display: flex;
   flex-direction: row;
 }
-#details-map > #map-description {
-  margin: .2em;
+
+#map-description {
+  flex-grow: 1;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-#description {
-  word-wrap: break-word;
-  background-color:  rgb(200,200,200);
-  border-radius: 3px;
+#details {
   flex-grow: 1;
-  margin-bottom: 0px;
-  padding: .2em;
+  width: 100%;
 }
-
-#map {
-  flex-grow: 2;
-}
-
-table, th, td{
-  display: flex;
-  flex-direction: column;
-  border: 1px solid black;
-  text-align: center;
-  margin: .2em;
-  background-color:  rgb(200,200,200);
-}
-
-#details-buttons {
-  margin: .2em;
-}
-
-/* button:hover {
-  background-color:yellow;
-} */
 </style>

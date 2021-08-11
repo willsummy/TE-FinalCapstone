@@ -1,16 +1,17 @@
 <template>
   <div id="mapdiv">
     <GmapMap
-      id="gamp"
+      id="map"
       :center='center'
       :zoom='10'
-      style='width:100%;  height: 400px;'
+
     >
       <GmapMarker
         :key="index"
         v-for="(m, index) in filteredMarkers"
         :position="m.position"
         @click="center=m.position"
+        :icon="{ url: require('../images/Greater Cleveland Pothole Tracker-01.png')}" />
       />
     </GmapMap>
   </div>
@@ -81,8 +82,10 @@ export default {
 </script>
 
 <style>
-    #map {
-      height: 600px;
+    #mapdiv {
+      height: 100%;
       background: gray;
+      width: inherit;
+
     }
 </style>
