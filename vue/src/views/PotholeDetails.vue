@@ -44,55 +44,54 @@
       <div id="details">
 
         <!-- everything but description -->
-        <table>
-          <tr>
-            <th>Pothole ID</th>
-            <td>{{pothole.pothole_id}}</td>
-          </tr>
-          <tr>
-            <th>User ID</th>
-            <td>{{pothole.user_id}}</td>
-          </tr>
-          <tr>
-            <th>Date Reported</th>
-            <td>{{pothole.dateReported}}</td>
-          </tr>
-          <tr>
-            <th>Address</th>
-            <td>
+          <span>
+            <span>Pothole ID: </span>
+            <span>{{pothole.pothole_id}}</span>
+          </span>
+          <span>
+            <span>User ID: </span>
+            <span>{{pothole.user_id}}</span>
+          </span>
+          <span>
+            <span>Date Reported: </span>
+            <span>{{pothole.dateReported}}</span>
+          </span>
+          <span>
+            <span>Address: </span>
+            <span>
               <span v-if="!isEditing">
                 {{pothole.address}}
               </span>
               <span v-if="isEditing">
                 <input type="text" v-model="submissionPothole.address">
               </span>
-            </td>
-          </tr>
-          <tr>
-            <th >Latitude</th>
-            <td>
+            </span>
+          </span>
+          <span>
+            <span >Latitude: </span>
+            <span>
               <span v-if="!isEditing">
                 {{pothole.latitude}}
               </span>
               <span v-if="isEditing">
                 <input type="text" v-model="submissionPothole.latitude">
               </span>
-            </td>
-          </tr>
-          <tr>
-            <th>Longitude</th>
-            <td>
+            </span>
+          </span>
+          <span>
+            <span>Longitude: </span>
+            <span>
               <span v-if="!isEditing">
                 {{pothole.longitude}}
               </span>
               <span v-if="isEditing">
                 <input type="text" v-model="submissionPothole.longitude">
               </span>
-            </td>
-          </tr>
-          <tr>
-            <th>Size</th>
-            <td>
+            </span>
+          </span>
+          <span>
+            <span>Size: </span>
+            <span>
               <span v-if="!isEditing">
                 {{pothole.size}}
               </span>
@@ -105,11 +104,12 @@
                     <option value="large">Large</option>
                 </select>
               </span>
-            </td>
-          </tr>
-          <tr>
-            <th >Rank</th>
-            <td>
+            </span>
+          </span>
+          
+          <span>
+            <span >Rank: </span>
+            <span>
               <span v-if="!isEditing">
                 {{rankDisplay}}
               </span>
@@ -129,13 +129,13 @@
                     <option value="10">10</option>
                 </select>
               </span>
-            </td>
-          </tr>
-          <tr>
-            <th>Service Status</th>
-            <td>{{serviceStatus}}</td>
-          </tr>
-        </table>
+            </span>
+          </span>
+          <span>
+            <span>Service Status: </span>
+            <span>{{serviceStatus}}</span>
+          </span>
+        
 
       </div>
 
@@ -309,6 +309,8 @@ export default {
 }
 
 #details {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   width: 100%;
 }

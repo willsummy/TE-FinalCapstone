@@ -132,4 +132,14 @@ export default {
     margin-bottom: 5px;
 }
 
+#toggleReport
+{
+  font-family: 'Encode Sans', sans-serif;
+  background-color: #FF7D00;
+  border-radius: 25px;
+  box-shadow: 5px 5px #15616D;
+  padding: 10px;
+}
+
+
 </style>

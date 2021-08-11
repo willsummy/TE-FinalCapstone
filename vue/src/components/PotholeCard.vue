@@ -1,40 +1,14 @@
 <template>
   <div>
     <div id="card" v-on:click="cardClick">
-      <table id="potholecardtable">
-          <tr id="potholecardtable">
-            <th>Pothole ID</th>
-            <td>{{pothole.pothole_id}}</td>
-          </tr>
-          <tr id="potholecardtable">
-            <th>User ID</th>
-            <td>{{pothole.user_id}}</td>
-          </tr>
-          <tr id="potholecardtable">
-            <th>Date Reported</th>
-            <td>{{pothole.dateReported}}</td>
-          </tr>
-          <tr id="potholecardtable">
-            <th>Time Reported</th>
-            <td>{{pothole.timeReported}}</td>
-          </tr>
-          <tr id="potholecardtable">
-            <th>Address</th>
-            <td>{{pothole.address}}</td>
-          </tr>
-          <tr id="potholecardtable">
-            <th>Latitude</th>
-            <td>{{pothole.latitude}}</td>
-          </tr>
-          <tr id="potholecardtable">
-            <th>Longitude</th>
-            <td>{{pothole.longitude}}</td>
-          </tr>
-          <tr id="potholecardtable">
-            <th>Size</th>
-            <td>{{pothole.size}}</td>
-          </tr>
-        </table>
+      <div>
+        <span>Pothole ID: {{pothole.pothole_id}}</span>
+        <span>Location: {{theLocation}}</span>
+      </div> 
+      <div>
+        <span>Severity: {{rankDisplay}}</span>
+        <span>Size: {{pothole.size}}</span>
+      </div>
     </div>
 
   </div>
@@ -55,6 +29,11 @@ export default {
         if (this.pothole.rank < 0) {
           return "Pothole Unranked"
         } else return this.pothole.rank
+      },
+      theLocation() {
+        if (this.pothole.address.length <= 0) {
+          return this.pothole.latitude + ", " + this.pothole.longitude
+        } else return this.pothole.address
       }
     }
 
@@ -63,10 +42,21 @@ export default {
 
 <style>
 #card {
-  background-color: lightgray;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #FF7D00;
   margin: 5px;
-  padding: 5px;
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 5px 5px #15616D;
   width: 80%;
+
+}
+
+#card > div {
+  display: flex;
+  flex-direction: column;
 }
 
 #potholecardtable{
