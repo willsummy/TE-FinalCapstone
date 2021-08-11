@@ -117,7 +117,6 @@ export default {
     flex-grow: 1;
     width: 100%;
     height: inherit;
-    border-style: solid;
 }
 
 #list {
@@ -130,6 +129,7 @@ export default {
 #report-filter {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 5px;
 }
 
 </style>
