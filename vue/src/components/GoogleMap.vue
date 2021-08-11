@@ -11,6 +11,7 @@
         v-for="(m, index) in filteredMarkers"
         :position="m.position"
         @click="center=m.position"
+        :icon="{ url: require('../images/Greater Cleveland Pothole Tracker-01.png')}" />
       />
     </GmapMap>
   </div>
