@@ -42,16 +42,15 @@ public class JdbcServiceDAO implements ServiceDAO {
     }
 
     @Override
-    public List<Service> getServiceList(Long id) {
-        List<Service> allServicesList = new ArrayList<>();
+    public Service getServiceList(Long id) {
+        Service service = null;
         String sql = "SELECT service_id, pothole_id, date_reported, date_inspected, date_repaired," +
                 "employee_id, service_status_id, service_description FROM service WHERE pothole_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
-        while (results.next()) {
-           Service allServices = mapRowToService(results);
-            allServicesList.add(allServices);
+        if (results.next()) {
+           service = mapRowToService(results);
         }
-        return allServicesList;
+        return service;
     }
 
     @Override

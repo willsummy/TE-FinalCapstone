@@ -47,14 +47,7 @@ export default {
     props: ['pothole'],
     methods: {
       cardClick() {
-        if (this.$store.state.user.authorities[0].name === "ROLE_ADMIN") {
           this.$router.push(`/pothole/${this.pothole.pothole_id}`)
-        } else {
-          const splitAddress = this.pothole.address.split(",");
-          const splitZip = splitAddress[splitAddress.length - 2].split(" ")
-          const zipcode = splitZip[2];
-          this.$store.commit("SET_ZIP_FILTER", zipcode)
-        }
       }
     },
     computed: {

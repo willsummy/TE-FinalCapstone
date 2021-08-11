@@ -81,31 +81,5 @@ export default {
 
 <style>
 
-  #master {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-  }
-  #form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: space-around;
-    border-style: groove;
-    border-color: black;
-    border-radius: 25px;
-    padding-left: 150px;
-    padding-right: 150px;
-    padding-bottom: 50px;
-
-  }
-
-  .form-control {
-    text-align: center;
-  }
-
-
-
 
 </style>

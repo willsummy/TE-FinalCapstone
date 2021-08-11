@@ -4,7 +4,7 @@
       id="map"
       :center='center'
       :zoom='10'
-    
+
     >
       <GmapMarker
         :key="index"
@@ -82,19 +82,10 @@ export default {
 </script>
 
 <style>
-    #map {
-      height: 600px;
-      background: gray;
-      border: 5px solid #78290f;
-      width: 75%;
-      height: 400px;
-      
-    }
-
     #mapdiv {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      
+      height: 100%;
+      background: gray;
+      width: inherit;
+
     }
 </style>
