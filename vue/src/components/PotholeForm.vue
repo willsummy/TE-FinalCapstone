@@ -97,24 +97,6 @@ export default {
 
 <style>
 
-#master {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
-  }
-  #form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: space-around;
-    margin: auto;
-    border-style: groove;
-    border-color: black;
-    padding-left: 150px;
-    padding-right: 150px;
-    padding-bottom: 50px;
-
-  }
 
 </style>

@@ -29,18 +29,7 @@
         </table>
 
         <div>
-            <button id="deleteService" v-on:click="deleteService">Delete</button>
 
-
-            <label for="service_status">Change Service Status</label>
-                <select  v-model="editedService.service_status_id" name="service_status" id="service_status">
-                    <option disabled default value="-1">Please select rank</option>
-                    <option value="1">Reported, Uninspected</option>
-                    <option value="2">Insepcted, Repair Pending</option>
-                    <option value="3">Repair Finished</option>
-                </select>
-
-            <button id="status-change-btn" v-on:click="setNewStatus">Set New Status</button>
         </div>
     </div>
 
@@ -56,16 +45,7 @@ export default {
     props: ['service'],
     data() {
         return {
-            editedService: {
-                service_id: '',
-                pothole_id: '',
-                date_reported: '',
-                date_inspected: '',
-                date_repaired: '',
-                employee_id: '',
-                service_status_id: '',
-                service_description: ''
-            }
+
         }
     },
     created() {

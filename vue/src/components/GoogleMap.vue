@@ -83,6 +83,5 @@ export default {
 <style>
     #map {
       height: 600px;
-      background: gray;
     }
 </style>

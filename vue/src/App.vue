@@ -44,7 +44,6 @@ img {
 }
 
 #header {
-  background-color: gray;
   display: flex;
   flex-direction: row;
 }

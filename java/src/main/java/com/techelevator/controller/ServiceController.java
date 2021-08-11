@@ -32,7 +32,7 @@ public class ServiceController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/service/{id}/list", method = RequestMethod.GET)
-    public List<Service> allServices(@PathVariable Long id) {
+    public Service allServices(@PathVariable Long id) {
         return serviceDAO.getServiceList(id);
     }
 
