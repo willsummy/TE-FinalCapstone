@@ -9,16 +9,15 @@
           <button id="edit" v-if="!isEditing" v-on:click='toggleEditing'>Edit</button>
           <button type="submit" id="editSubmit" v-if="isEditing" v-on:click.prevent="toggleEditing(); submitEdit();">Submit Edits</button>
           <button id="editClose" v-if="isEditing" v-on:click="toggleEditing">Discard Edits</button>
-
           <button id="delete" v-on:click="deletePothole">Delete Pothole</button>
 
 
           <button id="createService" v-on:click="createNewService" v-if="!hasService">Start Service</button>
-          <button id="deleteService" v-on:click="deleteService">Delete Service</button>
+          <button id="deleteService" v-on:click="deleteService" v-if="hasService">Delete Service</button>
 
 
             <label for="service_status">Change Service Status</label>
-                <select  v-model="editedService.service_status_id" name="service_status" id="service_status">
+                <select  v-model="newStatus" name="service_status" id="service_status">
                     <option disabled default value="-1">Please select rank</option>
                     <option value="1">Reported, Uninspected</option>
                     <option value="2">Insepcted, Repair Pending</option>
@@ -154,29 +153,22 @@ export default {
     data() {
       return {
         isEditing: false,
-        pothole:{},
-        center: null,
+        pothole:{
+
+        },
 
         submissionPothole: {
         },
-        service: this.$store.state.currentServices,
-        editedService: {
-                service_id: '',
-                pothole_id: '',
-                date_reported: '',
-                date_inspected: '',
-                date_repaired: '',
-                employee_id: '',
-                service_status_id: '',
-                service_description: ''
-        }
+
+        newStatus: null
       }
     },
     created() {
-      this.refreshPotholes();
-      this.refreshServices();
-      this.pothole = this.$store.state.potholes.find( pothole => pothole.pothole_id == this.$route.params.id);
-      this.center = {lat: this.pothole.latitude, lng: this.pothole.longitude}
+      this.refreshPotholes().then( () => {
+        this.pothole = this.$store.state.potholes.find( pothole => pothole.pothole_id == this.$route.params.id);
+      });
+      this.refreshServices()
+
 
     },
     computed: {
@@ -193,10 +185,14 @@ export default {
         return this.$store.state.user.authorities[0].name === "ROLE_ADMIN"
       },
       hasService() {
-        return this.$store.state.currentServices.length >= 1
+        return !(this.$store.state.currentServices == null || this.$store.state.currentServices == '')
       },
       serviceStatus() {
+        if (this.$store.state.currentServices == null || this.$store.state.currentServices == '') return "No Service Started"
         return this.$store.state.currentServices.service_status_id
+      },
+      center() {
+        return {lat: this.pothole.latitude, lng: this.pothole.longitude}
       }
     },
     methods: {
@@ -206,6 +202,7 @@ export default {
             PotholeService.delete(this.$route.params.id).then( response => {
               if (response.status == 200) {
                 this.$store.commit("DELETE_POTHOLE", this.$route.params.id)
+                this.$store.commit("DELETE_SERVICE")
                 alert("Deleted")
                 this.$router.push('/')
               } else {
@@ -276,14 +273,17 @@ export default {
       },
         setNewStatus() {
 
-            ServiceService.setStatus(this.editedService).then( response => {
+          let editedService = this.$store.state.currentServices
+          editedService.service_status_id = this.newStatus
+
+            ServiceService.setStatus(editedService).then( response => {
                 if(response.status == 200) {
                     this.refreshServices();
                 } else alert("Could not update Service Status")
             })
         },
         deleteService() {
-            ServiceService.deleteService(this.service.service_id).then( response => {
+            ServiceService.deleteService(this.$store.state.currentServices.service_id).then( response => {
                 if( response.status == 200 ) {
                     alert("Pothole Service Deleted")
                     this.refreshServices()

@@ -35,6 +35,7 @@
 
 <script>
 import PotholeService from '../services/PotholeService.js'
+import ServiceService from '../services/ServiceService.js'
 
 export default {
     name: "pothole-form",
@@ -68,18 +69,36 @@ export default {
                 .then( response => {
                     if (response.status == 201) {
                         alert('Pothole Reported')
+
+                        this.refreshPotholes();
+                        this.refreshServices();
                     } else if (response.status != 500) {
                         alert('Server not set up yet')
                     }
-                    this.$router.push('/')
 
                 })
-            this.$store.commit("ADD_POTHOLE", this.pothole)
         },
         setAddress(place) {
             this.pothole.address = place.formatted_address;
             this.pothole.latitude = place.geometry.location.lat();
             this.pothole.longitude = place.geometry.location.lng();
+        },
+        refreshPotholes() {
+            let potholes = null;
+            PotholeService.getList().then(response => {
+                potholes = response.data;
+                this.$store.commit("SET_POTHOLES", potholes)
+            })
+        },
+        refreshServices() {
+            ServiceService.getList(this.$route.params.id)
+            .then( response => {
+            if (response.status == 200) {
+                this.$store.commit("SET_SERVICES", response.data)
+            } else {
+                alert("Could not retrieve Services")
+            }
+            })
         }
 
     },

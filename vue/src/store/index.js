@@ -23,7 +23,7 @@ export default new Vuex.Store({
     potholes: [],
     filterType: '',
     filter: "",
-    currentServices: []
+    currentServices: null
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -71,6 +71,9 @@ export default new Vuex.Store({
 
       SET_SERVICES(state, services) {
       state.currentServices = services;
+    },
+    DELETE_SERVICE(state) {
+      state.currentServices = null;
     }
 
   }
