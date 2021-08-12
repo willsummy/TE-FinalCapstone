@@ -86,13 +86,14 @@ export default {
   text-align: center;
 }
 
-#login {
+#login, #register {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10px;
   width: 40%;
-  
+  padding: 15px;
+  border: 5px solid #78290F;
+  border-radius: 15px;
 }
  
 #master {

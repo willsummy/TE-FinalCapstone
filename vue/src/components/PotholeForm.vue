@@ -1,7 +1,7 @@
 <template>
   <div id="master">
-      <form id="form" v-on:submit.prevent>
-          <div>
+      <form id="form" class="reportPothole" v-on:submit.prevent>
+          <div id="sizeSelect">
               <label for="size">Size</label>
               <select v-model="pothole.size" name="size" id="size">
                   <option disabled default value="">Please select size</option>
@@ -17,15 +17,15 @@
                 @place_changed='setAddress'
             />
             <span v-if="useCurrentLocation" >Current Location Being Used</span>
-            <button v-if="!useCurrentLocation" v-on:click="useCurrentLocation = !useCurrentLocation; geolocate()">Use Current Location</button>
-            <button v-if="useCurrentLocation" v-on:click="useCurrentLocation = !useCurrentLocation">Lookup Address</button>
+            <button id="filterbutton" v-if="!useCurrentLocation" v-on:click="useCurrentLocation = !useCurrentLocation; geolocate()">Use Current Location</button>
+            <button id="filterbutton" v-if="useCurrentLocation" v-on:click="useCurrentLocation = !useCurrentLocation">Lookup Address</button>
           </div>
           <div>
 
               <textarea v-model="pothole.description" name="description" id="description" cols="30" rows="10" placeholder="Please write a description"></textarea>
           </div>
           <div>
-              <button v-on:click="submit" type="submit">Submit</button>
+              <button id="filterbutton" v-on:click="submit" type="submit">Submit</button>
           </div>
 
       </form>
@@ -116,6 +116,25 @@ export default {
 
 <style>
 
+.reportPothole {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+  padding: 15px;
+  background-color: #FF7D00 ;
+  border: 5px solid #78290F;
+  border-radius: 15px;
+  margin-top: 10px;
+}
+
+#sizeSelect {
+     font-family: 'Encode Sans', sans-serif;
+  background-color: #FF7D00;
+  border-radius: 25px;
+  
+ 
+}
 
 
 </style>

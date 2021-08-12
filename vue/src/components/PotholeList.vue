@@ -19,12 +19,14 @@ export default {
     filteredPotholes() {
       if(this.$store.state.filterType == "zipcode") {
         return this.$store.state.potholes.filter( pothole => {
+          if (pothole.address == undefined || pothole.address == null || pothole.address == "") return false
           return pothole.address.includes(this.$store.state.filter)
         })
 
 
       } else if (this.$store.state.filterType == "city") {
         return this.$store.state.potholes.filter( pothole => {
+          if (pothole.address == undefined || pothole.address == null || pothole.address == "") return false
           const addressSplit = pothole.address.split(",")
           const city = addressSplit[addressSplit.length-3]
           return city.includes(this.$store.state.filter)

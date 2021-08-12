@@ -6,25 +6,30 @@
       <div id="map-description">
         <div id="details-buttons" v-if="hasAdminStatus">
       <!-- 3 buttons, edit, delete, status -->
-          <button id="edit" v-if="!isEditing" v-on:click='toggleEditing'>Edit</button>
-          <button type="submit" id="editSubmit" v-if="isEditing" v-on:click.prevent="toggleEditing(); submitEdit();">Submit Edits</button>
-          <button id="editClose" v-if="isEditing" v-on:click="toggleEditing">Discard Edits</button>
-          <button id="delete" v-on:click="deletePothole">Delete Pothole</button>
+        <div class="pothole-button">
+          <button id="edit" class=" button-style" v-if="!isEditing" v-on:click='toggleEditing'>Edit</button>
+          <button type="submit" id="editSubmit" class=" button-style" v-if="isEditing" v-on:click.prevent="toggleEditing(); submitEdit();">Submit Edits</button>
+        
+        
+          <button id="editClose" class=" button-style" v-if="isEditing" v-on:click="toggleEditing">Discard Edits</button>
+          <button id="delete" class=" button-style" v-on:click="deletePothole">Delete Pothole</button>
+         </div> 
 
+        <div class="service-button">
+          <button id="createService" class=" button-style" v-on:click="createNewService" v-if="!hasService">Start Service</button>
+          <button id="deleteService" class=" button-style" v-on:click="deleteService" v-if="hasService">Delete Service</button>
+          <button id="status-change-btn" class=" button-style" v-on:click="setNewStatus">Set New Status</button>
 
-          <button id="createService" v-on:click="createNewService" v-if="!hasService">Start Service</button>
-          <button id="deleteService" v-on:click="deleteService" v-if="hasService">Delete Service</button>
-
-
-            <label for="service_status">Change Service Status</label>
-                <select  v-model="newStatus" name="service_status" id="service_status">
-                    <option disabled default value="-1">Please select rank</option>
+           
+                <select class="statusSelect"  v-model="newStatus" name="service_status" id="service_status">
+                    <option disabled default value="null">Change Service Status</option>
                     <option value="1">Reported, Uninspected</option>
                     <option value="2">Insepcted, Repair Pending</option>
                     <option value="3">Repair Finished</option>
                 </select>
 
-            <button id="status-change-btn" v-on:click="setNewStatus">Set New Status</button>
+            
+          </div>
         </div>
         <!-- map and description -->
         <GmapMap
@@ -36,62 +41,66 @@
           :key="index"
           :position="place.position"
           @click="center=m.position"
+          :clickable="true"
+        :icon='{ url: require("../img/GCPT P.png"), scaledSize: { width: 80, height: 80, f: "px", b: "px" }}' 
         />
         </GmapMap>
-        <p id="description">{{this.pothole.description}}</p>
+        <div id="description">
+          <p class="bold">Description: </p>
+          <p>{{this.pothole.description}}</p>
+        </div>
       </div>
       <div id="details">
 
         <!-- everything but description -->
-        <table>
-          <tr>
-            <th>Pothole ID</th>
-            <td>{{pothole.pothole_id}}</td>
-          </tr>
-          <tr>
-            <th>User ID</th>
-            <td>{{pothole.user_id}}</td>
-          </tr>
-          <tr>
-            <th>Date Reported</th>
-            <td>{{pothole.dateReported}}</td>
-          </tr>
-          <tr>
-            <th>Address</th>
-            <td>
+         
+            <span class="bold">Pothole ID: </span>
+            <span>{{pothole.pothole_id}}</span>
+          
+         
+            <span class="bold">User ID: </span>
+            <span>{{pothole.user_id}}</span>
+          
+        
+            <span class="bold">Date Reported: </span>
+            <span>{{pothole.dateReported}}</span>
+         
+         
+            <span class="bold">Address: </span>
+            <span>
               <span v-if="!isEditing">
                 {{pothole.address}}
               </span>
               <span v-if="isEditing">
                 <input type="text" v-model="submissionPothole.address">
               </span>
-            </td>
-          </tr>
-          <tr>
-            <th >Latitude</th>
-            <td>
+            </span>
+          
+         
+            <span class="bold" >Latitude: </span>
+            <span>
               <span v-if="!isEditing">
                 {{pothole.latitude}}
               </span>
               <span v-if="isEditing">
                 <input type="text" v-model="submissionPothole.latitude">
               </span>
-            </td>
-          </tr>
-          <tr>
-            <th>Longitude</th>
-            <td>
+            </span>
+         
+        
+            <span class="bold">Longitude: </span>
+            <span>
               <span v-if="!isEditing">
                 {{pothole.longitude}}
               </span>
               <span v-if="isEditing">
                 <input type="text" v-model="submissionPothole.longitude">
               </span>
-            </td>
-          </tr>
-          <tr>
-            <th>Size</th>
-            <td>
+            </span>
+        
+         
+            <span class="bold">Size: </span>
+            <span>
               <span v-if="!isEditing">
                 {{pothole.size}}
               </span>
@@ -104,11 +113,12 @@
                     <option value="large">Large</option>
                 </select>
               </span>
-            </td>
-          </tr>
-          <tr>
-            <th >Rank</th>
-            <td>
+            </span>
+          
+          
+         
+            <span class="bold" >Rank: </span>
+            <span>
               <span v-if="!isEditing">
                 {{rankDisplay}}
               </span>
@@ -128,13 +138,13 @@
                     <option value="10">10</option>
                 </select>
               </span>
-            </td>
-          </tr>
-          <tr>
-            <th>Service Status</th>
-            <td>{{serviceStatus}}</td>
-          </tr>
-        </table>
+            </span>
+         
+         
+            <span class="bold">Service Status: </span>
+            <span>{{serviceStatus}}</span>
+        
+        
 
       </div>
 
@@ -189,7 +199,10 @@ export default {
       },
       serviceStatus() {
         if (this.$store.state.currentServices == null || this.$store.state.currentServices == '') return "No Service Started"
-        return this.$store.state.currentServices.service_status_id
+        if (this.$store.state.currentServices.service_status_id == 1) return "Not Inspected"
+        if (this.$store.state.currentServices.service_status_id == 2) return "Inspected, Repair Pending"
+        if (this.$store.state.currentServices.service_status_id == 3) return "Repaired"
+        return "No Service Started"
       },
       center() {
         return {lat: this.pothole.latitude, lng: this.pothole.longitude}
@@ -307,9 +320,55 @@ export default {
   display: flex;
   flex-direction: column;
 }
-
+#description {
+  background-color: #FF7D00;
+  border-radius: 20px;
+  margin-top: 10px;
+  padding: 15px;
+  margin-bottom: 0px;
+}
 #details {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   width: 100%;
+  background-color: #FF7D00;
+  margin-left: 20px;
+  padding: 15px;
+  border-radius: 20px;
+}
+#details-buttons {
+  display: flex;
+  flex-direction: column;
+}
+.pothole-button, .service-button {
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.statusSelect {
+  font-family: 'Encode Sans', sans-serif;
+  background-color: #FF7D00;
+  border-radius: 25px;
+  box-shadow: 5px 5px #15616D;
+  padding: 10px;
+}
+
+.button-style {
+  font-family: 'Encode Sans', sans-serif;
+  background-color: #FF7D00;
+  border-radius: 25px;
+  box-shadow: 5px 5px #15616D;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+p {
+ margin: 0px
 }
 </style>
