@@ -2,12 +2,25 @@
   <div>
     <div id="card" v-on:click="cardClick">
       <div>
-        <span>Pothole ID: {{pothole.pothole_id}}</span>
-        <span>Location: {{theLocation}}</span>
+        <div>
+          <span class="bold">Pothole ID: </span>
+          <span>{{pothole.pothole_id}}</span>
+        </div>
+        <div>
+          <span class="bold">Location: </span>
+          <span>{{theLocation}}</span>
+        </div>
       </div> 
       <div>
-        <span>Severity: {{rankDisplay}}</span>
-        <span>Size: {{pothole.size}}</span>
+        <div>
+          <span class="bold">Severity: </span>
+          <span>{{rankDisplay}}</span>
+        </div> 
+        <div>
+          <span class="bold">Size: </span>
+          <span>{{pothole.size}}</span>
+        </div>
+
       </div>
     </div>
 
@@ -65,5 +78,9 @@ export default {
   border: 1px solid #FF7D00 ;
   text-align: center;
   padding: .2em;
+}
+
+.bold {
+  font-weight: bold;
 }
 </style>

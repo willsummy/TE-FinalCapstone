@@ -12,7 +12,7 @@
         :position="m.position"
         @click="center=m.position"
         :clickable="true"
-        :icon='{ url: require("../img/GCPT P.png"),size: { width: 100, height: 100, f: "px", b: "px" }, scaledSize: { width: 50, height: 50, f: "px", b: "px" }}' />
+        :icon='{ url: require("../img/GCPT P.png"), scaledSize: { width: 50, height: 50, f: "px", b: "px" }}' />
       />
     </GmapMap>
   </div>
@@ -45,6 +45,7 @@ export default {
     filteredMarkers() {
       if(this.$store.state.filterType == "zipcode") {
         const filtered = this.$store.state.potholes.filter( pothole => {
+          if (pothole.address == undefined || pothole.address == null || pothole.address == "") return false
           return pothole.address.includes(this.$store.state.filter)
         })
         return filtered.map( pothole => {
@@ -53,6 +54,7 @@ export default {
         })
       } else if (this.$store.state.filterType == "city") {
         const filtered = this.$store.state.potholes.filter( pothole => {
+          if (pothole.address ==  undefined || pothole.address == null || pothole.address == "") return false
           const addressSplit = pothole.address.split(",")
           const city = addressSplit[addressSplit.length-3]
           return city.includes(this.$store.state.filter)
@@ -84,8 +86,8 @@ export default {
 
 <style>
     #mapdiv {
-      height: 100%;
-      background: gray;
+      height: inherit;
+     
       width: inherit;
 
     }
