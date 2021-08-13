@@ -98,7 +98,6 @@
               </span>
             </span>
         
-         
             <span class="bold">Size: </span>
             <span>
               <span v-if="!isEditing">
@@ -114,9 +113,7 @@
                 </select>
               </span>
             </span>
-          
-          
-         
+
             <span class="bold" >Rank: </span>
             <span>
               <span v-if="!isEditing">
@@ -143,8 +140,6 @@
          
             <span class="bold">Service Status: </span>
             <span>{{serviceStatus}}</span>
-        
-        
 
       </div>
 
@@ -335,7 +330,9 @@ export default {
   background-color: #FF7D00;
   margin-left: 20px;
   padding: 15px;
+  border: 5px solid #78290F ;
   border-radius: 20px;
+  justify-content: space-between;
 }
 #details-buttons {
   display: flex;

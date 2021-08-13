@@ -4,6 +4,7 @@
       id="map"
       :center='center'
       :zoom='10'
+      
 
     >
       <GmapMarker

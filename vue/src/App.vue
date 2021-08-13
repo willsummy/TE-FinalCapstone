@@ -2,7 +2,9 @@
   <div id="app">
     <div id="header">
       <div id="imageDiv">
-        <img src="./img/GCPTLogo.png" alt="Greater Cleveland Pothole Tracker">
+        <router-link id="aboutTheTeam"  to="/about">
+          <img src="./img/GCPTLogo.png" alt="Greater Cleveland Pothole Tracker">
+        </router-link>
       </div>
       <div id="headerDiv">
         <div id="titles">

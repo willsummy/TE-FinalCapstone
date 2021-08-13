@@ -7,7 +7,7 @@
                 <button id="closeForm" v-on:click="toggleReport" v-if="isReportOpen">Close Report</button>
             </div>
 
-            <button id="filterbutton" type="submit" v-on:click.prevent="reset_filter">View All</button>
+            <button id="viewAllButton" type="submit" v-on:click.prevent="reset_filter">View All</button>
 
             <select class="filterSelect" v-model="filterType" name="filterType" id="filterType">
                 <option disabled default value="">Please select type of filter</option>
@@ -111,6 +111,7 @@ export default {
 #googlemap {
     display: flex;
     flex-direction: row;
+    width: 100%;
     height: 600px;
 }
 
@@ -123,6 +124,8 @@ export default {
     flex-grow: 1;
     width: 100%;
     height: 96%;
+  
+    
 }
 
 #list {
@@ -153,7 +156,7 @@ export default {
 #report-filter {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 #filterbutton{
@@ -170,7 +173,7 @@ export default {
     
 }
 
-#toggleReport, .filterSelect, #zipfilter, #cityfilter, #userfilter, #closeForm {
+#toggleReport, .filterSelect, #zipfilter, #cityfilter, #userfilter, #closeForm, #viewAllButton {
 
   font-family: 'Encode Sans', sans-serif;
   background-color: #FF7D00;
