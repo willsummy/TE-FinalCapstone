@@ -7,6 +7,7 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import AnonView from '../views/AnonView.vue'
 import PotholeDetails from '../views/PotholeDetails.vue'
+import AboutTeam from '../views/AboutTeam.vue'
 Vue.use(Router)
 
 /**
@@ -69,6 +70,14 @@ const router = new Router({
       meta: {
         requiresAuth: true
 
+      }
+    },
+    {
+      path: "/about",
+      name: "AboutTeam",
+      component: AboutTeam,
+      meta: {
+        requiresAuth: false 
       }
     }
   ]
